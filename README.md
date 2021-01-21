@@ -1,1 +1,1 @@
-# samples
+# FIT2CLOUD 应用模板
