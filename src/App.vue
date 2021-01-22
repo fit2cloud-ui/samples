@@ -1,21 +1,15 @@
 <template>
   <div id="app">
-    FIT2CLOUD 应用模板
+    <login/>
   </div>
 </template>
 
 <script>
 
+import Login from "@/business/login";
+
 export default {
   name: 'App',
-  components: {}
+  components: {Login}
 }
 </script>
-
-<style lang="scss">
-@import "src/styles/element-variables";
-
-#app {
-  color: $--color-primary;
-}
-</style>

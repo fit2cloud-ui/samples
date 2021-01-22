@@ -1,0 +1,19 @@
+$--color-primary: #1890FF;
+$--color-success: #13CE66;
+$--color-warning: #FFBA00;
+$--color-danger: #FF4949;
+
+$--button-font-weight: 400;
+
+$--border-color-light: #DFE4ED;
+$--border-color-lighter: #E6EBF5;
+
+$--table-border: 1px solid #DFE6EC;
+
+// fit2cloud-ui的variables加载了element-ui的变量
+@import "~fit2cloud-ui/src/styles/common/variables";
+
+:export {
+  theme: $--color-primary;
+}
+

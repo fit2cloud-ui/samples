@@ -6,15 +6,6 @@ function resolve(dir) {
 
 module.exports = {
     productionSourceMap: true,
-    devServer: {
-        port: 8080,
-        proxy: {
-            ['^(?!/login)']: {
-                target: 'http://localhost:8081',
-                ws: true,
-            }
-        }
-    },
     configureWebpack: {
         devtool: 'source-map',
         resolve: {
