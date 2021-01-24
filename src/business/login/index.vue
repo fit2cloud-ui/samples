@@ -1,42 +1,44 @@
 <template>
-  <div class="login-container">
-    <el-row type="flex">
-      <el-col :span="12">
-        <el-form :model="form" :rules="rules" ref="form">
-          <div class="logo">
-            <img :src="'/display/file/loginLogo'" style="width: 224px;height: 45px;" alt="">
-          </div>
-          <div class="title">
-            <span id="s1">{{ loginTitle }}</span>
-          </div>
-          <div class="border"></div>
-          <div class="welcome">
-            {{ $t('login.welcome') }}
-          </div>
-          <div class="form">
-            <el-form-item prop="username">
-              <el-input v-model="form.username" :placeholder="$t('login.username')" autofocus
-                        autocomplete="off"/>
-            </el-form-item>
-            <el-form-item prop="password">
-              <el-input v-model="form.password" :placeholder="$t('login.password')" show-password autocomplete="off"
-                        maxlength="30" show-word-limit/>
-            </el-form-item>
-          </div>
-          <div class="btn">
-            <el-button type="primary" class="submit" @click="submit('form')">
-              {{ $t('commons.button.login') }}
-            </el-button>
-          </div>
-          <div class="msg">
-            {{ msg }}
-          </div>
-        </el-form>
-      </el-col>
-      <el-col :span="12">
-        <img src="../../assets/login-desc.png" alt="Login" class="login-image">
-      </el-col>
-    </el-row>
+  <div class="login-background">
+    <div class="login-container">
+      <el-row type="flex">
+        <el-col :span="12">
+          <el-form :model="form" :rules="rules" ref="form">
+            <div class="login-logo">
+              <img src="../../assets/FIT2CLOUD-blue.png" alt="">
+            </div>
+            <div class="login-title">
+              {{ loginTitle }}
+            </div>
+            <div class="login-border"></div>
+            <div class="login-welcome">
+              {{ $t('login.welcome') }}
+            </div>
+            <div class="login-form">
+              <el-form-item prop="username">
+                <el-input v-model="form.username" :placeholder="$t('login.username')" autofocus
+                          autocomplete="off"/>
+              </el-form-item>
+              <el-form-item prop="password">
+                <el-input v-model="form.password" :placeholder="$t('login.password')" show-password autocomplete="off"
+                          maxlength="30" show-word-limit/>
+              </el-form-item>
+            </div>
+            <div class="login-btn">
+              <el-button type="primary" class="submit" @click="submit('form')">
+                {{ $t('commons.button.login') }}
+              </el-button>
+            </div>
+            <div class="login-msg">
+              {{ msg }}
+            </div>
+          </el-form>
+        </el-col>
+        <el-col :span="12">
+          <div class="login-image"></div>
+        </el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 
@@ -93,17 +95,121 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.login-container {
-  min-width: 800px;
-  max-width: 1280px;
-  height: 520px;
-  margin: calc((100vh - 560px) / 2) auto 0;
-  background-color: #FFFFFF;
+@import "../../../src/styles/common/variables";
 
-  & .login-image {
-    height: 520px;
+@mixin login-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-background {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-size: 14px;
+  background-color: #F5F5F5;
+  -webkit-font-smoothing: antialiased;
+  height: 100vh;
+  width: 100vw;
+  @include login-center;
+}
+
+.login-container {
+  min-width: 900px;
+  width: 1280px;
+  height: 520px;
+  background-color: #FFFFFF;
+  @media only screen and (max-width: 1280px) {
+    width: 900px;
+    height: 380px;
+  }
+
+  .login-logo {
+    margin-top: 30px;
+    margin-left: 30px;
+    @media only screen and (max-width: 1280px) {
+      margin-top: 20px;
+    }
+
+    img {
+      width: 224px;
+      height: 45px;
+    }
+  }
+
+  .login-title {
+    margin-top: 50px;
+    font-size: 32px;
+    letter-spacing: 0;
+    text-align: center;
+    color: #999999;
+
+    @media only screen and (max-width: 1280px) {
+      margin-top: 20px;
+    }
+  }
+
+  .login-border {
+    height: 2px;
+    margin: 20px auto 20px;
+    position: relative;
+    width: 80px;
+    background: $--color-primary;
+    @media only screen and (max-width: 1280px) {
+      margin: 10px auto 10px;
+    }
+  }
+
+  .login-welcome {
+    margin-top: 50px;
+    font-size: 14px;
+    color: #999999;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-align: center;
+    @media only screen and (max-width: 1280px) {
+      margin-top: 20px;
+    }
+  }
+
+  .login-form {
+    margin-top: 30px;
+    padding: 0 40px;
+
+    @media only screen and (max-width: 1280px) {
+      margin-top: 10px;
+    }
+
+    & ::v-deep .el-input__inner {
+      border-radius: 0;
+    }
+  }
+
+  .login-btn {
+    margin-top: 40px;
+    padding: 0 40px;
+    @media only screen and (max-width: 1280px) {
+      margin-top: 20px;
+    }
+
+    .submit {
+      width: 100%;
+      border-radius: 0;
+    }
+  }
+
+  .login-msg {
+    margin-top: 10px;
+    padding: 0 40px;
+    color: $--color-danger;
+    text-align: center;
+  }
+
+  .login-image {
+    background: url(../../assets/login-desc.png) no-repeat;
+    background-size: cover;
+    height: 100%;
     width: 100%;
-    object-fit: cover;
+
   }
 }
 </style>
