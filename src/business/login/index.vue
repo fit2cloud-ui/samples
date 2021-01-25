@@ -8,7 +8,7 @@
               <img src="../../assets/FIT2CLOUD-blue.png" alt="">
             </div>
             <div class="login-title">
-              {{ loginTitle }}
+              {{ $t('login.title') }}
             </div>
             <div class="login-border"></div>
             <div class="login-welcome">
@@ -16,12 +16,12 @@
             </div>
             <div class="login-form">
               <el-form-item prop="username">
-                <el-input v-model="form.username" :placeholder="$t('login.username')" autofocus
-                          autocomplete="off"/>
+                <el-input v-model="form.username" :placeholder="$t('login.username')" autofocus/>
               </el-form-item>
               <el-form-item prop="password">
-                <el-input v-model="form.password" :placeholder="$t('login.password')" show-password autocomplete="off"
-                          maxlength="30" show-word-limit/>
+                <el-input v-model="form.password" :placeholder="$t('login.password')"
+                          show-password maxlength="30" show-word-limit
+                          autocomplete="new-password"/>
               </el-form-item>
             </div>
             <div class="login-btn">
@@ -51,8 +51,7 @@ export default {
       result: {},
       form: {
         username: '',
-        password: '',
-        authenticate: 'LOCAL'
+        password: ''
       },
       rules: {
         username: [
@@ -64,7 +63,6 @@ export default {
         ]
       },
       msg: '',
-      loginTitle: "Login MeterSphere"
     }
   },
   created: function () {
@@ -131,7 +129,6 @@ export default {
     }
 
     img {
-      width: 224px;
       height: 45px;
     }
   }
@@ -207,9 +204,11 @@ export default {
   .login-image {
     background: url(../../assets/login-desc.png) no-repeat;
     background-size: cover;
-    height: 100%;
     width: 100%;
-
+    height: 520px;
+    @media only screen and (max-width: 1280px) {
+      height: 380px;
+    }
   }
 }
 </style>
