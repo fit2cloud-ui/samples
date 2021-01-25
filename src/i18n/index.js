@@ -31,7 +31,7 @@ function setI18nLanguage(lang) {
   return lang;
 }
 
-// 组合翻译，例如key为'请输入{0}'，keys为login.username，则自动讲keys翻译并替换到{0}
+// 组合翻译，例如key为'请输入{0}'，keys为login.username，则自动将keys翻译并替换到{0} {1}...
 Vue.prototype.$tm = function (key, ...keys) {
   let values = [];
   for (const k of keys) {
