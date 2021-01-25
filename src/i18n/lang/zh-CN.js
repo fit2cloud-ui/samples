@@ -1,4 +1,6 @@
-export default {
+import el from "element-ui/lib/locale/lang/zh-CN"; // 加载element的内容
+
+const message = {
   commons: {
     button: {
       login: "登录",
@@ -23,6 +25,12 @@ export default {
   login: {
     username: "用户名",
     password: "密码",
+    title: "登录 FIT2CLOUD",
     welcome: "欢迎回来，请输入用户名和密码登录"
   }
+}
+
+export default {
+  ...el,
+  ...message
 };

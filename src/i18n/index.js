@@ -1,30 +1,28 @@
 import Vue from 'vue';
 import VueI18n from "vue-i18n";
 import axios from "axios";
-import enLocale from "element-ui/lib/locale/lang/en";
-import zh_CNLocale from "element-ui/lib/locale/lang/zh-CN";
-import zh_CN from "./zh-CN";
-import en_US from "./en-US";
 
 Vue.use(VueI18n);
 
-const messages = {
-  'en_US': {
-    ...enLocale,
-    ...en_US
-  },
-  'zh_CN': {
-    ...zh_CNLocale,
-    ...zh_CN
+// 直接加载翻译的语言文件
+const LOADED_LANGUAGES = ['zh_CN', 'en_US'];
+
+const langFiles = require.context('./lang', true, /\.js$/)
+
+// 自动加载lang目录下语言文件，默认只加载LOADED_LANGUAGES中规定的语言文件，其他的语言在调用$setLang时动态加载
+const messages = langFiles.keys().reduce((messages, path) => {
+  const value = langFiles(path)
+  const lang = path.replace(/^\.\/(.*)\.\w+$/, '$1').replace("-", "_");
+  if (LOADED_LANGUAGES.includes(lang)) {
+    messages[lang] = value.default
   }
-};
+  return messages;
+}, {})
 
 const i18n = new VueI18n({
   locale: 'zh_CN',
   messages,
 });
-
-const loadedLanguages = ['en_US', 'zh_CN', 'zh_TW'];
 
 function setI18nLanguage(lang) {
   i18n.locale = lang;
@@ -42,13 +40,14 @@ Vue.prototype.$tm = function (key, ...keys) {
   return i18n.t(key, values);
 };
 
+// 设置当前语言，LOADED_LANGUAGES以外的翻译文件会自动从lang目录获取(如果有的话)
 Vue.prototype.$setLang = function (lang) {
   if (i18n.locale !== lang) {
-    if (!loadedLanguages.includes(lang)) {
+    if (!LOADED_LANGUAGES.includes(lang)) {
       let file = lang.replace("_", "-");
-      return import(`./${file}`).then(response => {
+      return import(`./lang/${file}`).then(response => {
         i18n.mergeLocaleMessage(lang, response.default);
-        loadedLanguages.push(lang);
+        LOADED_LANGUAGES.push(lang);
         return setI18nLanguage(lang)
       })
     }
