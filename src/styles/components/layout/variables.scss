@@ -1,0 +1,20 @@
+@import "../../common/variables";
+
+/* layout */
+$header-height: 60px;
+$header-color: #FFFFFF;
+$header-bg-color: $--color-primary;
+
+/* sidebar */
+$sidebar-open-width: 240px;
+$sidebar-close-width: 54px;
+$sidebar-bg-color: #FFFFFF;
+
+/* main */
+$main-bg-color: #F5F5F5;
+
+:export {
+  headerHeight: $header-height;
+  sidebarOpenWidth: $sidebar-open-width;
+  sidebarCloseWidth: $sidebar-close-width;
+}

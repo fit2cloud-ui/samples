@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../../src/styles/common/variables";
+@import "../../styles/common/variables";
 
 @mixin login-center {
   display: flex;
@@ -102,12 +102,8 @@ export default {
 }
 
 .login-background {
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-  font-size: 14px;
-  background-color: #F5F5F5;
-  -webkit-font-smoothing: antialiased;
-  height: 100vh;
-  width: 100vw;
+  background-color: $--background-color-base;
+  height: 100%;
   @include login-center;
 }
 
