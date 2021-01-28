@@ -1,20 +1,31 @@
 <template>
   <main class="main-container">
-    <slot>
-      <main-view/>
-    </slot>
+    <transition name="el-fade-in" mode="out-in">
+      <keep-alive>
+        <router-view :key="key"/>
+      </keep-alive>
+    </transition>
   </main>
 </template>
 
 <script>
-import MainView from "@/components/layout/MainView";
-
 export default {
   name: "LayoutMain",
-  components: {MainView}
+  computed: {
+    key() {
+      return this.$route.path
+    }
+  }
 }
 </script>
+<style lang="scss" scoped>
+@import "~@/styles/components/layout/variables.scss";
 
-<style scoped>
-
+.main-container {
+  display: block;
+  flex: auto;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: $tb-padding $lr-padding;
+}
 </style>

@@ -1,20 +1,43 @@
-@import "../../common/variables";
+@import "~@/styles/common/variables.scss";
 
 /* layout */
-$header-height: 60px;
-$header-color: #FFFFFF;
-$header-bg-color: $--color-primary;
+$layout-bg-color: #F2F2F2;
 
 /* sidebar */
-$sidebar-open-width: 240px;
+$sidebar-open-width: 220px;
 $sidebar-close-width: 54px;
-$sidebar-bg-color: #FFFFFF;
+$sidebar-bg-color: #30373d;
+$sidebar-bg-gradient: linear-gradient(to bottom right, #30373D, #3E3E3D);
+
+/* menu */
+$menu-color: #BFCBD9;
+$menu-active-color: #FBFCFC;
+$menu-bg-color: $sidebar-bg-color;
+$menu-bg-color-hover: #1E2325;
+
+$submenu-active-border-color: #F4F4F5;
+$submenu-active-color: #F4F4F5;
+$submenu-bg-color: #1F2D3D;
+$submenu-bg-color-hover: #001528;
+
+/* logo */
+$logo-height: 40px;
+$logo-bg-color: #4E5051;
+
+/* header */
+$header-height: 60px;
+$header-padding: 30px;
 
 /* main */
-$main-bg-color: #F5F5F5;
+$lr-padding: 15px;
+$tb-padding: 20px;
 
 :export {
-  headerHeight: $header-height;
-  sidebarOpenWidth: $sidebar-open-width;
-  sidebarCloseWidth: $sidebar-close-width;
+  menuColor: $menu-color;
+  menuActiveColor: $menu-active-color;
+  menuBgColor: $menu-bg-color;
+  menuBgColorHover: $menu-bg-color-hover;
+  subMenuActiveColor: $submenu-active-color;
+  submenuBgColor: $submenu-bg-color;
+  submenuBgColorHover: $submenu-bg-color-hover;
 }
