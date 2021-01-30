@@ -18,14 +18,3 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-@import "~@/styles/components/layout/variables.scss";
-
-.main-container {
-  display: block;
-  flex: auto;
-  overflow: auto;
-  box-sizing: border-box;
-  padding: $tb-padding $lr-padding;
-}
-</style>

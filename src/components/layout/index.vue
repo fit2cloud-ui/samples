@@ -24,17 +24,3 @@ export default {
   components: {LayoutMain, LayoutSidebar, LayoutHeader}
 }
 </script>
-
-<style lang="scss" scoped>
-@import "~@/styles/components/layout/variables.scss";
-
-.layout-container {
-  min-width: 1024px;
-  height: 100%;
-  background-color: $layout-bg-color;
-
-  .right-container {
-    position: relative;
-  }
-}
-</style>
