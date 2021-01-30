@@ -1,8 +1,8 @@
 <template>
   <div class="sidebar-logo-container" :class="{'collapse':collapse}">
-    <transition name="sidebar-logo-fade">
+    <transition name="sidebar-logo-fade" mode="out-in">
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo" alt="Sidebar Logo">
+        <img v-if="collapseLogo" :src="collapseLogo" class="sidebar-logo" alt="Sidebar Logo">
       </router-link>
       <router-link v-else key="expand" class="sidebar-logo-link" to="/">
         <img v-if="logo" :src="logo" class="sidebar-logo" alt="Sidebar Logo">
@@ -23,7 +23,8 @@ export default {
   data() {
     return {
       title: 'FIT2CLOUD',
-      logo: require('@/assets/FIT2CLOUD-white.png')
+      logo: require('@/assets/RackShift-white.png'),
+      collapseLogo: require('@/assets/RackShift-assist-white.png')
     }
   }
 }
@@ -33,7 +34,8 @@ export default {
 @import "~@/styles/components/layout/variables.scss";
 
 .sidebar-logo-fade-enter-active {
-  transition: opacity 1.5s;
+  transition: opacity 0.5s;
+  transition-delay: 0.1s
 }
 
 .sidebar-logo-fade-enter,
@@ -43,37 +45,40 @@ export default {
 
 .sidebar-logo-container {
   position: relative;
-  width: 100%;
   height: $header-height;
   line-height: $header-height;
-  background: $logo-bg-color;
   overflow: hidden;
 
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: #{$sidebar-close-width / 4};
+    height: 1px;
+    width: calc(100% - #{$sidebar-close-width / 2});
+    background-color: hsla(0, 0%, 100%, .5);
+  }
+
   & .sidebar-logo-link {
+    display: flex;
+    align-items: center;
     height: 100%;
     width: 100%;
 
     & .sidebar-logo {
+      margin-left: #{$sidebar-close-width / 4};
       height: $logo-height;
-      vertical-align: middle;
-      margin-right: 12px;
-    }
-
-    & .sidebar-title {
-      display: inline-block;
-      margin: 0;
-      color: #fff;
-      font-weight: 600;
-      line-height: 50px;
-      font-size: 14px;
-      font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;
     }
   }
 
   &.collapse {
+    .sidebar-logo-link {
+      justify-content: center;
+    }
+
     .sidebar-logo {
-      margin-right: 0;
+      margin: 0;
     }
   }
 }

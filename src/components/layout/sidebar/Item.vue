@@ -30,8 +30,8 @@ export default {
 
 <style scoped>
 .sub-el-icon {
-  color: currentColor;
-  width: 1em;
-  height: 1em;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
 }
 </style>

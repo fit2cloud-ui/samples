@@ -31,7 +31,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/business/dashboard'),
         name: 'Dashboard',
-        meta: {title: 'Dashboard', icon: 'dashboard', affix: true}
+        meta: {title: 'Dashboard', icon: 'el-icon-s-marketing', affix: true}
       }
     ]
   },
@@ -49,20 +49,20 @@ export const constantRoutes = [
         path: 'create',
         component: () => import('@/business/dashboard'),
         name: 'CreateArticle',
-        meta: { title: 'Create Article', icon: 'edit' }
+        meta: {title: 'Create Article', icon: 'el-icon-s-help'}
       },
       {
         path: 'edit/:id(\\d+)',
         component: () => import('@/business/dashboard'),
         name: 'EditArticle',
-        meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
+        meta: {title: 'Edit Article', noCache: true, activeMenu: '/example/list'},
         hidden: true
       },
       {
         path: 'list',
         component: () => import('@/business/dashboard'),
         name: 'ArticleList',
-        meta: { title: 'Article List', icon: 'list' }
+        meta: {title: 'Article List'}
       }
     ]
   },

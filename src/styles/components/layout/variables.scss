@@ -4,21 +4,20 @@
 $layout-bg-color: #F2F2F2;
 
 /* sidebar */
-$sidebar-open-width: 220px;
-$sidebar-close-width: 54px;
+$sidebar-open-width: 260px;
+$sidebar-close-width: 60px;
 $sidebar-bg-color: #30373d;
 $sidebar-bg-gradient: linear-gradient(to bottom right, #30373D, #3E3E3D);
 
 /* menu */
 $menu-color: #BFCBD9;
-$menu-active-color: #FBFCFC;
-$menu-bg-color: $sidebar-bg-color;
-$menu-bg-color-hover: #1E2325;
-
-$submenu-active-border-color: #F4F4F5;
-$submenu-active-color: #F4F4F5;
-$submenu-bg-color: #1F2D3D;
-$submenu-bg-color-hover: #001528;
+$menu-active-color: #FFF;
+$menu-active-bg-color: #5E5E5E;
+$menu-active-border-color: $--color-primary;
+$menu-bg-color: transparent;
+$menu-bg-color-hover: #4A4B4D;
+$menu-height: 50px;
+$submenu-height: 40px;
 
 /* logo */
 $logo-height: 40px;
@@ -36,8 +35,4 @@ $tb-padding: 20px;
   menuColor: $menu-color;
   menuActiveColor: $menu-active-color;
   menuBgColor: $menu-bg-color;
-  menuBgColorHover: $menu-bg-color-hover;
-  subMenuActiveColor: $submenu-active-color;
-  submenuBgColor: $submenu-bg-color;
-  submenuBgColorHover: $submenu-bg-color-hover;
 }
