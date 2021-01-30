@@ -1,5 +1,4 @@
 @mixin sidebar-base-item {
-  max-width: 60px;
   margin: 4px 10px;
   padding-left: 10px !important;
   border-radius: 4px;
@@ -83,7 +82,11 @@
 
       &.is-active {
         .el-submenu__title, {
-          @include sidebar-item-active
+          @include sidebar-item-active;
+
+          .sub-el-icon {
+            color: #FFF;
+          }
         }
       }
 
@@ -126,6 +129,7 @@
       }
 
       .submenu-title-no-dropdown, .el-submenu__title {
+        max-width: 60px;
         text-align: center;
 
         span {
