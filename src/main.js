@@ -5,6 +5,8 @@ import App from './App.vue'
 import i18n from "@/i18n";
 import router from './router'
 import store from './store'
+import message from "@/plugins/message";
+import request from "@/plugins/request";
 
 store.dispatch('permission/generateRoutes', ['admin'])
 
@@ -14,6 +16,8 @@ Vue.use(ElementUI, {
   size: 'small',
   i18n: (key, value) => i18n.t(key, value)
 });
+Vue.use(request);
+Vue.use(message);
 
 new Vue({
   el: '#app',

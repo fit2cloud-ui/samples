@@ -82,6 +82,7 @@ export default {
     submit(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
+          this.$post("")
           // TODO
         } else {
           return false;

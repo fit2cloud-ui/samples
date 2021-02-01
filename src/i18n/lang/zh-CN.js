@@ -2,6 +2,11 @@ import el from "element-ui/lib/locale/lang/zh-CN"; // 加载element的内容
 
 const message = {
   commons: {
+    message_box: {
+      alert: "警告",
+      confirm: "确认",
+      prompt: "提示",
+    },
     button: {
       login: "登录",
       ok: "确定",
@@ -26,7 +31,8 @@ const message = {
     username: "用户名",
     password: "密码",
     title: "登录 FIT2CLOUD",
-    welcome: "欢迎回来，请输入用户名和密码登录"
+    welcome: "欢迎回来，请输入用户名和密码登录",
+    expires: '认证信息已过期，请重新登录',
   }
 }
 
