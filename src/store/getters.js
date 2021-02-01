@@ -1,4 +1,5 @@
 const getters = {
+  sidebar: state => state.app.sidebar,
   auth: state => state.user.auth,
   token: state => state.user.token,
   name: state => state.user.name,

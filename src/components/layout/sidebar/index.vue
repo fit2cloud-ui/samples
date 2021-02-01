@@ -1,10 +1,10 @@
 <template>
   <div class="sidebar">
-    <logo :collapse="collapse"/>
+    <logo :collapse="isCollapse"/>
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         :default-active="activeMenu"
-        :collapse="collapse"
+        :collapse="isCollapse"
         :collapse-transition="false"
         :unique-opened="false"
         :background-color="variables.menuBgColor"
@@ -27,12 +27,10 @@ import Logo from "@/components/layout/sidebar/Logo";
 export default {
   name: "Sidebar",
   components: {Logo, SidebarItem},
-  props: {
-    collapse: Boolean
-  },
   computed: {
     ...mapGetters([
       'permission_routes',
+      'sidebar'
     ]),
     activeMenu() {
       const route = this.$route
@@ -41,6 +39,9 @@ export default {
         return meta.activeMenu
       }
       return path
+    },
+    isCollapse() {
+      return !this.sidebar.opened
     },
     variables() {
       return variables

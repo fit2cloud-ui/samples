@@ -6,8 +6,7 @@ const set = value => {
 }
 const state = {
   sidebar: {
-    opened: get() ? !!+get() : true,
-    withoutAnimation: false
+    opened: get() ? !!+get() : true
   },
   device: 'desktop'
 }
@@ -21,12 +20,13 @@ const mutations = {
       set(0)
     }
   },
+  OPEN_SIDEBAR: (state) => {
+    set('sidebarStatus', 1)
+    state.sidebar.opened = true
+  },
   CLOSE_SIDEBAR: (state) => {
     set('sidebarStatus', 0)
     state.sidebar.opened = false
-  },
-  TOGGLE_DEVICE: (state, device) => {
-    state.device = device
   }
 }
 
@@ -34,11 +34,11 @@ const actions = {
   toggleSideBar({commit}) {
     commit('TOGGLE_SIDEBAR')
   },
-  closeSideBar({commit}, {withoutAnimation}) {
-    commit('CLOSE_SIDEBAR', withoutAnimation)
+  openSideBar({commit}) {
+    commit('OPEN_SIDEBAR')
   },
-  toggleDevice({commit}, device) {
-    commit('TOGGLE_DEVICE', device)
+  closeSideBar({commit}) {
+    commit('CLOSE_SIDEBAR')
   }
 }
 
