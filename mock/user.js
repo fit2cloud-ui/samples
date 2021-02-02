@@ -1,4 +1,4 @@
-import {success, error} from "./result-holder"
+const {success, error} = require("./result-holder")
 
 const auth = {
   admin: {

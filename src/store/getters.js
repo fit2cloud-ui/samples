@@ -1,7 +1,7 @@
 const getters = {
   sidebar: state => state.app.sidebar,
-  auth: state => state.user.auth,
-  token: state => state.user.token,
+  isLogin: state => state.user.isLogin,
+  id: state => state.user.id,
   name: state => state.user.name,
   roles: state => state.user.roles,
   permission_routes: state => state.permission.routes,

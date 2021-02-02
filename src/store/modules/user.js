@@ -1,4 +1,4 @@
-import {login, logout, getInfo} from '@/api/user'
+import {getInfo, logout} from '@/api/user'
 import {resetRouter} from '@/router'
 
 const state = {
@@ -27,55 +27,24 @@ const mutations = {
 }
 
 const actions = {
-  // user login
-  login({commit}, userInfo) {
-    const {username, password} = userInfo
-    return new Promise((resolve, reject) => {
-      login({username: username.trim(), password: password}).then(() => {
-        commit('LOGIN')
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
+  login({commit}) {
+    commit('LOGIN')
   },
 
   getInfo({commit}) {
-    return new Promise((resolve, reject) => {
-      getInfo().then(response => {
-        const {data} = response
-
-        if (!data) {
-          reject('Verification failed, please Login again.')
-        }
-
-        const {roles, id, name} = data
-
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
-        }
-
-        commit('SET_ROLES', roles)
-        commit('SET_ID', id)
-        commit('SET_NAME', name)
-        resolve(data)
-      }).catch(error => {
-        reject(error)
-      })
+    getInfo().then(data => {
+      const {roles, id, name} = data
+      commit('SET_ROLES', roles)
+      commit('SET_ID', id)
+      commit('SET_NAME', name)
     })
   },
 
-  logout({commit, state}) {
-    return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
-        commit('LOGOUT')
-        commit('SET_ROLES', [])
-        resetRouter()
-
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
+  logout({commit}) {
+    logout().then(() => {
+      commit('LOGOUT')
+      commit('SET_ROLES', [])
+      resetRouter()
     })
   },
 }

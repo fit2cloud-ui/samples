@@ -1,17 +1,23 @@
-export function login(data) {
-  return new Promise(function (resolve) {
-    resolve({id: "admin", name: "admin", data: data}) // Test
-  });
-}
+import {request, get} from "@/plugins/request"
 
-export function getInfo() {
-  return new Promise(function (resolve) {
-    resolve({roles: ["admin"], name: "admin", id: "admin"}) // Test
-  });
+export function login(data) {
+  return request({
+    url: "/samples/user/login",
+    method: "post",
+    data
+  })
 }
 
 export function logout() {
-  return new Promise(function (resolve) {
-    resolve()
-  });
+  return request({
+    url: "/samples/user/logout",
+    method: "post"
+  })
 }
+
+export function getInfo() {
+  return get("/samples/user/info")
+}
+
+
+

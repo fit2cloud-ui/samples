@@ -1,9 +1,9 @@
 <template>
   <div class="login-background">
     <div class="login-container">
-      <el-row type="flex">
+      <el-row type="flex" v-loading="loading">
         <el-col :span="12">
-          <el-form :model="form" :rules="rules" ref="form">
+          <el-form :model="form" :rules="rules" ref="form" size="default">
             <div class="login-logo">
               <img src="../../assets/RackShift-black.png" alt="">
             </div>
@@ -25,7 +25,7 @@
               </el-form-item>
             </div>
             <div class="login-btn">
-              <el-button type="primary" class="submit" @click="submit('form')">
+              <el-button type="primary" class="submit" @click="submit('form')" size="default">
                 {{ $t('commons.button.login') }}
               </el-button>
             </div>
@@ -43,12 +43,13 @@
 </template>
 
 <script>
+import {login} from '@/api/user'
 
 export default {
   name: "Login",
   data() {
     return {
-      result: {},
+      loading: false,
       form: {
         username: '',
         password: ''
@@ -63,6 +64,20 @@ export default {
         ]
       },
       msg: '',
+      redirect: undefined,
+      otherQuery: {}
+    }
+  },
+  watch: {
+    $route: {
+      handler: function (route) {
+        const query = route.query
+        if (query) {
+          this.redirect = query.redirect
+          this.otherQuery = this.getOtherQuery(query)
+        }
+      },
+      immediate: true
     }
   },
   created: function () {
@@ -82,13 +97,31 @@ export default {
     submit(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
-          this.$post("")
-          // TODO
+          this.loading = true;
+          login(this.form).then(response => {
+            if (response.data.success) {
+              this.$store.dispatch('user/login')
+              this.$router.push({path: this.redirect || '/', query: this.otherQuery})
+            } else {
+              this.msg = response.data.message
+            }
+            this.loading = false;
+          }).catch(() => {
+            this.loading = false;
+          })
         } else {
           return false;
         }
       });
     },
+    getOtherQuery(query) {
+      return Object.keys(query).reduce((acc, cur) => {
+        if (cur !== 'redirect') {
+          acc[cur] = query[cur]
+        }
+        return acc
+      }, {})
+    }
   }
 }
 </script>
