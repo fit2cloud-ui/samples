@@ -74,6 +74,10 @@
     flex: auto;
     height: 100%;
 
+    .navbar-item {
+      color: #2E2E2E;
+    }
+
     .navbar-item + .navbar-item {
       margin-left: 20px;
     }

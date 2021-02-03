@@ -1,7 +1,7 @@
 @mixin sidebar-base-item {
   margin: 4px 10px;
   padding-left: 10px !important;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 @mixin menu-item {
@@ -46,7 +46,6 @@
     .scrollbar-wrapper {
       height: 100%;
       overflow-x: hidden;
-      overflow-y: auto;
     }
   }
 

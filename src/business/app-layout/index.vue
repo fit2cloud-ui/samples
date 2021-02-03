@@ -1,11 +1,9 @@
 <template>
   <layout>
     <template v-slot:header>
-      <div class="navbar-item">item 1</div>
-      <div class="navbar-item">item 2</div>
-      <div class="navbar-item">
+      <navbar-item>
         <language-switch/>
-      </div>
+      </navbar-item>
     </template>
   </layout>
 </template>
@@ -13,13 +11,10 @@
 <script>
 import Layout from "@/components/layout";
 import LanguageSwitch from "@/components/language-switch";
+import NavbarItem from "@/components/layout/NavbarItem";
 
 export default {
   name: "AppLayout",
-  components: {LanguageSwitch, Layout}
+  components: {NavbarItem, LanguageSwitch, Layout}
 }
 </script>
-
-<style scoped>
-
-</style>

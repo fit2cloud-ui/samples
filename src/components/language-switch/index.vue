@@ -1,50 +1,37 @@
 <template>
   <el-menu :unique-opened="true"
+           :default-active="language"
            class="language-switch"
            text-color="inherit"
-           :active-text-color="variables.theme"
            mode="horizontal">
-    <el-submenu index="1">
+    <el-submenu index="1" popper-class="language-switch-popper">
       <template slot="title">
         <font-awesome-icon class="language-icon" :icon="['fas', 'globe']"/>
         <span>{{ languageMap[language] }}</span>
       </template>
-      <el-menu-item v-for="(value, key) in languages" :key="key" @click="setLanguage(key)">
-        {{ value }}
+      <el-menu-item v-for="(value, key) in languageMap" :key="key" :index="key" @click="setLanguage(key)">
+        <span>{{ value }}</span>
+        <i class="el-icon-check" v-if="key === language"/>
       </el-menu-item>
     </el-submenu>
   </el-menu>
 </template>
 
 <script>
-import variables from "@/styles/common/variables.scss"
 
 export default {
   name: "LanguageSwitch",
   data() {
     return {
       languageMap: {
-        "zh-CN": "简体中文",
+        "zh-CN": "中文(简体)",
         "en-US": "English",
-        "zh-TW": "繁體中文",
       }
     };
   },
   computed: {
-    variables() {
-      return variables
-    },
     language() {
       return this.$store.getters.language
-    },
-    languages() {
-      let languages = {}
-      for (const language in this.languageMap) {
-        if (this.language !== language) {
-          languages[language] = this.languageMap[language]
-        }
-      }
-      return languages
     }
   },
   methods: {
@@ -60,23 +47,43 @@ export default {
 @import "~@/styles/common/variables.scss";
 
 .language-switch {
+  width: 150px;
+
   &.el-menu {
     background-color: transparent;
     color: inherit;
+
+    &.el-menu--horizontal {
+      border: none;
+    }
+
+    ::v-deep .el-submenu__title {
+      border: none;
+      height: 40px;
+      line-height: 40px;
+    }
   }
 
   .language-icon {
     width: 24px;
+    margin-left: 10px;
   }
 }
 
-.el-icon-check {
-  color: $--color-primary;
-  margin-left: 10px;
-}
+.language-switch-popper {
+  .el-menu-item {
+    &.is-active {
+      color: $--color-primary;
+    }
 
-.align-right {
-  float: right;
-}
+    &:hover {
+      background-color: #D5D5D5;
+    }
+  }
 
+  .el-icon-check {
+    margin-left: 10px;
+    color: $--color-primary;
+  }
+}
 </style>

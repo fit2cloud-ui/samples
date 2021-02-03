@@ -29,3 +29,24 @@ a:hover {
   text-decoration: none;
 }
 
+// 滚动条整体部分
+::-webkit-scrollbar {
+  width: 8px; // 纵向滚动条宽度
+  height: 8px; // 横向滚动条高度
+  position: fixed;
+}
+
+// 滑块
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: #4A4B4D;
+  position: fixed;
+}
+
+// 轨道
+::-webkit-scrollbar-track {
+  border-radius: 2px;
+  background-color: transparent;
+  position: fixed;
+}
+
