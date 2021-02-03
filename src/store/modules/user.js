@@ -5,6 +5,7 @@ const state = {
   isLogin: true,
   id: '',
   name: '',
+  language: "",
   roles: []
 }
 
@@ -21,9 +22,24 @@ const mutations = {
   SET_NAME: (state, name) => {
     state.name = name
   },
+  SET_LANGUAGE: (state, language) => {
+    state.language = language
+    localStorage.setItem('language', language)
+  },
   SET_ROLES: (state, roles) => {
     state.roles = roles
   }
+}
+
+const getLanguage = lang => {
+  let language = lang
+  if (!language) {
+    language = localStorage.getItem('language')
+  }
+  if (!language) {
+    language = (navigator.language || navigator.browserLanguage).toLowerCase()
+  }
+  return language;
 }
 
 const actions = {
@@ -31,13 +47,18 @@ const actions = {
     commit('LOGIN')
   },
 
-  getInfo({commit}) {
-    getInfo().then(data => {
-      const {roles, id, name} = data
+  getInfo({commit}, id) {
+    getInfo(id).then(response => {
+      const {roles, id, name, language} = response.data
       commit('SET_ROLES', roles)
       commit('SET_ID', id)
       commit('SET_NAME', name)
+      commit('SET_LANGUAGE', getLanguage(language))
     })
+  },
+
+  setLanguage({commit}, language) {
+    commit('SET_LANGUAGE', language)
   },
 
   logout({commit}) {

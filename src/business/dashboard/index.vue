@@ -1,6 +1,6 @@
 <template>
   <div>
-    dashboard
+    {{ $t('commons.message_box.prompt') }}
   </div>
 </template>
 

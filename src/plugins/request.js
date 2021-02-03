@@ -1,20 +1,18 @@
 import axios from 'axios'
-import {MessageBox, Message} from 'element-ui'
+import {$alert, $warning, $error} from "./message"
 import store from '@/store'
 import i18n from "@/i18n";
 
-// 默认的请求方法
-export const request = axios.create({
+const instance = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   withCredentials: true,
-  timeout: 5000 // request timeout
+  timeout: 60000 // request timeout, default 1 min
 })
 
 const checkAuth = response => {
-  if (response.headers["authentication-status"] === "invalid") {
+  if (response.headers["authentication-status"] === "invalid" || response.status === 401) {
     let message = i18n.t('login.expires');
-    let title = i18n.t('login.alert');
-    MessageBox.alert(message, title).then(() => {
+    $alert(message, () => {
       store.dispatch('user/logout').then(() => {
         location.reload()
       })
@@ -22,24 +20,30 @@ const checkAuth = response => {
   }
 }
 
-request.interceptors.response.use(response => {
+const checkPermission = response => {
+  if (response.status === 403) {
+    location.href = "/403";
+  }
+}
+
+instance.interceptors.response.use(response => {
   checkAuth(response);
   return response;
 }, error => {
+  let msg;
   if (error.response) {
     checkAuth(error.response);
+    checkPermission(error.response);
+    msg = error.response.data.message || error.response.data;
   } else {
     console.log('error: ' + error) // for debug
-    Message.error({
-      message: error.message,
-      type: "error",
-      showClose: true,
-      duration: 10000
-    })
+    msg = error.message;
   }
+  $error(msg)
   return Promise.reject(error);
 });
 
+export const request = instance
 
 /* 简化请求方法，仅针对返回值为{success, data, message}格式的请求，并且统一处理失败或异常情况，如果特殊需求直接用request(例如登录请求) */
 const promise = (request, loading = {}) => {
@@ -51,12 +55,7 @@ const promise = (request, loading = {}) => {
         resolve(response.data);
       } else {
         // 发出错误消息并执行失败方法
-        Message.warning({
-          message: response.data.message,
-          type: "warning",
-          showClose: true,
-          duration: 5000
-        })
+        $warning(response.data.message)
         reject(response.data)
       }
       loading.status = false;

@@ -55,7 +55,7 @@ module.exports = [
 
       // mock error
       if (!info) {
-        return error("无法获取用户详细信息")
+        return error("无法获取用户[" + id + "]详细信息")
       }
 
       return success(info)

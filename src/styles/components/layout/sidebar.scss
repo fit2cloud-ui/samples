@@ -2,8 +2,6 @@
   margin: 4px 10px;
   padding-left: 10px !important;
   border-radius: 4px;
-  color: $menu-color !important;
-  background-color: $menu-bg-color !important;
 }
 
 @mixin menu-item {
@@ -19,8 +17,8 @@
 }
 
 @mixin sidebar-item-active {
-  color: $menu-active-color !important;
-  background-color: $menu-active-bg-color !important;
+  color: $menu-active-color;
+  background-color: $menu-active-bg-color;
 }
 
 .sidebar {
@@ -62,9 +60,14 @@
     border: none;
     height: 100%;
     width: 100%;
+    background-color: $menu-bg-color;
 
     .submenu-title-no-dropdown {
       @include menu-item;
+
+      &:hover {
+        background-color: $menu-bg-color-hover;
+      }
 
       &.is-active {
         @include sidebar-item-active;
@@ -76,7 +79,7 @@
         @include menu-item;
 
         &:hover {
-          background-color: $menu-bg-color-hover !important;
+          background-color: $menu-bg-color-hover;
         }
       }
 
@@ -94,7 +97,7 @@
         @include submenu-item;
 
         &:hover {
-          background-color: $menu-bg-color-hover !important;
+          background-color: $menu-bg-color-hover;
         }
 
         &.is-active {
@@ -151,7 +154,7 @@
 .sidebar-popper {
   & > .el-menu {
     display: block;
-    background-color: $sidebar-bg-color !important;
+    background-color: $sidebar-bg-color;
 
     .sub-el-icon {
       margin-right: 12px;
@@ -173,7 +176,7 @@
     }
 
     &:hover {
-      background-color: $menu-bg-color-hover !important;
+      background-color: $menu-bg-color-hover;
     }
   }
 

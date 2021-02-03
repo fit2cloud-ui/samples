@@ -7,7 +7,6 @@
         :collapse="isCollapse"
         :collapse-transition="false"
         :unique-opened="false"
-        :background-color="variables.menuBgColor"
         :text-color="variables.menuColor"
         :active-text-color="variables.menuActiveColor"
         mode="vertical"

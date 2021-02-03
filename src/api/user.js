@@ -15,8 +15,8 @@ export function logout() {
   })
 }
 
-export function getInfo() {
-  return get("/samples/user/info")
+export function getInfo(id) {
+  return get("/samples/user/info", {id})
 }
 
 
