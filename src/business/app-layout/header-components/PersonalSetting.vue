@@ -1,5 +1,5 @@
 <template>
-  <el-menu class="header-menu" text-color="inherit" mode="horizontal" menu-trigger="click">
+  <el-menu class="header-menu" text-color="inherit" mode="horizontal">
     <el-submenu index="none" popper-class="header-menu-popper">
       <template slot="title">
         <span>{{ name }}</span>

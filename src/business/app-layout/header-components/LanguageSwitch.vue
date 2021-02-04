@@ -1,5 +1,5 @@
 <template>
-  <el-menu :unique-opened="true" menu-trigger="click"
+  <el-menu :unique-opened="true"
            :default-active="language"
            class="header-menu"
            text-color="inherit"
@@ -51,7 +51,6 @@ export default {
 .header-menu {
   .language-icon {
     width: 24px;
-    margin-left: 10px;
   }
 }
 
