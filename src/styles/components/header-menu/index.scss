@@ -1,0 +1,37 @@
+@import "../../common/variables.scss";
+
+.header-menu {
+  min-width: 150px;
+
+  &.el-menu {
+    background-color: transparent;
+    color: inherit;
+
+    &.el-menu--horizontal {
+      border: none;
+
+      .el-submenu__title {
+        border: none;
+        min-width: 150px;
+        height: 40px;
+        line-height: 40px;
+      }
+    }
+  }
+}
+
+.header-menu-popper {
+  .el-menu--popup {
+    min-width: 150px;
+  }
+
+  .el-menu-item {
+    &.is-active {
+      color: $--color-primary;
+    }
+
+    &:hover {
+      background-color: #D5D5D5;
+    }
+  }
+}

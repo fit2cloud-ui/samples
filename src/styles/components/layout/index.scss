@@ -6,10 +6,10 @@
   min-width: 1024px;
   height: 100%;
   background-color: $layout-bg-color;
+}
 
-  .right-container {
-    position: relative;
-  }
+.main-container {
+  position: relative;
 }
 
 .sidebar-container {
@@ -19,72 +19,17 @@
   background-color: $sidebar-bg-color;
   background-image: $sidebar-bg-gradient;
 
-  .collapse-button {
-    @include flex-row(center, center);
-    z-index: 99;
-    position: absolute;
-    top: calc(50% - 10px);
-    right: -10px;
-    height: 40px;
-    width: 10px;
-    box-sizing: border-box;
-    color: #F4F4F5;
-    background-color: $sidebar-bg-color;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    cursor: pointer;
-
-    &:hover {
-      background-color: $menu-bg-color-hover;
-    }
-  }
-
   &.is-collapse {
     width: $sidebar-close-width;
-
-    .collapse-button i {
-      transform: rotate(180deg);
-    }
   }
 }
 
 .header-container {
-  @include flex-row(flex-start, center);
   height: $header-height;
   padding: 0 $header-padding;
-
-  &:after {
-    content: "";
-    position: absolute;
-    top: $header-height;
-    left: $header-padding;
-    height: 1px;
-    width: calc(100% - #{2 * $header-padding});
-    background-color: #D5D5D5;
-  }
-
-  .header-title {
-    @include flex-row(flex-start, center);
-    position: relative;
-    height: 100%;
-  }
-
-  .header-navbar {
-    @include flex-row(flex-end, center);
-    flex: auto;
-    height: 100%;
-
-    .navbar-item {
-      color: #2E2E2E;
-    }
-
-    .navbar-item + .navbar-item {
-      margin-left: 20px;
-    }
-  }
 }
 
-.main-container {
+.view-container {
   display: block;
   flex: auto;
   overflow: auto;

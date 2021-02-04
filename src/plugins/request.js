@@ -45,7 +45,7 @@ instance.interceptors.response.use(response => {
 
 export const request = instance
 
-/* 简化请求方法，仅针对返回值为{success, data, message}格式的请求，并且统一处理失败或异常情况，如果特殊需求直接用request(例如登录请求) */
+/* 简化请求方法，统一处理返回结果，并增加loading处理，这里以{success,data,message}格式的返回值为例，具体项目根据实际需求修改 */
 const promise = (request, loading = {}) => {
   return new Promise((resolve, reject) => {
     loading.status = true;

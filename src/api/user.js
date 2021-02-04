@@ -1,4 +1,4 @@
-import {request, get} from "@/plugins/request"
+import {request, get, put} from "@/plugins/request"
 
 export function login(data) {
   return request({
@@ -17,6 +17,10 @@ export function logout() {
 
 export function getInfo(id) {
   return get("/samples/user/info", {id})
+}
+
+export function updateInfo(id, data) {
+  return put("/samples/user/info/update/" + id, data)
 }
 
 

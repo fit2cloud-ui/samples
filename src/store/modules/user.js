@@ -1,4 +1,4 @@
-import {getInfo, logout} from '@/api/user'
+import {getInfo, updateInfo, logout} from '@/api/user'
 import {resetRouter} from '@/router'
 
 const state = {
@@ -57,8 +57,15 @@ const actions = {
     })
   },
 
-  setLanguage({commit}, language) {
+  setLanguage({commit, state}, language) {
     commit('SET_LANGUAGE', language)
+    return new Promise((resolve, reject) => {
+      updateInfo(state.id, {language: language}).then(response => {
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
+    })
   },
 
   logout({commit}) {

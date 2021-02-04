@@ -1,6 +1,8 @@
 <template>
   <aside :class="['sidebar-container', {'is-collapse': isCollapse}]">
-    <sidebar/>
+    <slot>
+      <sidebar/>
+    </slot>
   </aside>
 </template>
 

@@ -25,6 +25,11 @@ const message = {
       limit: '长度在 {0} 到 {1} 个字符',
       input: "请输入{0}",
       select: "请选择{0}",
+    },
+    personal: {
+      personal_information: "个人信息",
+      help_documentation: "帮助文档",
+      exit_system: "退出系统",
     }
   },
   login: {

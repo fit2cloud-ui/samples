@@ -62,6 +62,15 @@ module.exports = [
     }
   },
 
+  // get user info
+  {
+    url: '/samples/user/info/update/\.*',
+    type: 'put',
+    response: () => {
+      return success()
+    }
+  },
+
   // user logout
   {
     url: '/samples/user/logout',

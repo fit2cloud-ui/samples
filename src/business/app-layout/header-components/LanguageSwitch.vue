@@ -1,10 +1,10 @@
 <template>
-  <el-menu :unique-opened="true"
+  <el-menu :unique-opened="true" menu-trigger="click"
            :default-active="language"
-           class="language-switch"
+           class="header-menu"
            text-color="inherit"
            mode="horizontal">
-    <el-submenu index="1" popper-class="language-switch-popper">
+    <el-submenu index="1" popper-class="header-menu-popper">
       <template slot="title">
         <font-awesome-icon class="language-icon" :icon="['fas', 'globe']"/>
         <span>{{ languageMap[language] }}</span>
@@ -37,7 +37,9 @@ export default {
   methods: {
     setLanguage(lang) {
       this.$setLang(lang)
-      this.$store.dispatch('user/setLanguage', lang)
+      this.$store.dispatch('user/setLanguage', lang).then(() => {
+        // do something
+      })
     }
   }
 }
@@ -46,41 +48,14 @@ export default {
 <style lang="scss" scoped>
 @import "~@/styles/common/variables.scss";
 
-.language-switch {
-  width: 150px;
-
-  &.el-menu {
-    background-color: transparent;
-    color: inherit;
-
-    &.el-menu--horizontal {
-      border: none;
-    }
-
-    ::v-deep .el-submenu__title {
-      border: none;
-      height: 40px;
-      line-height: 40px;
-    }
-  }
-
+.header-menu {
   .language-icon {
     width: 24px;
     margin-left: 10px;
   }
 }
 
-.language-switch-popper {
-  .el-menu-item {
-    &.is-active {
-      color: $--color-primary;
-    }
-
-    &:hover {
-      background-color: #D5D5D5;
-    }
-  }
-
+.header-menu-popper {
   .el-icon-check {
     margin-left: 10px;
     color: $--color-primary;

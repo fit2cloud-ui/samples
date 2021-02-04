@@ -24,7 +24,7 @@ const i18n = new VueI18n({
   messages,
 });
 
-function setI18nLanguage(lang) {
+function setLanguage(lang) {
   i18n.locale = lang;
   axios.defaults.headers.common['Accept-Language'] = lang;
   document.querySelector('html').setAttribute('lang', lang);
@@ -40,17 +40,17 @@ Vue.prototype.$tm = function (key, ...keys) {
   return i18n.t(key, values);
 };
 
-// 设置当前语言，LOADED_LANGUAGES以外的翻译文件会自动从lang目录获取(如果有的话)
+// 设置当前语言，LOADED_LANGUAGES以外的翻译文件会自动从lang目录获取(如果有的话), 如果不需要动态加载语言文件，直接用setLanguage就可以了
 Vue.prototype.$setLang = function (lang) {
   if (i18n.locale !== lang) {
     if (!LOADED_LANGUAGES.includes(lang)) {
       return import(`./lang/${lang}`).then(response => {
         i18n.mergeLocaleMessage(lang, response.default);
         LOADED_LANGUAGES.push(lang);
-        return setI18nLanguage(lang)
+        return setLanguage(lang)
       })
     }
-    return Promise.resolve(setI18nLanguage(lang))
+    return Promise.resolve(setLanguage(lang))
   }
   return Promise.resolve(lang)
 };
