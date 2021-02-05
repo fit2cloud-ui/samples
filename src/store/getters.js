@@ -1,7 +1,6 @@
+// 根据实际需要修改
 const getters = {
   sidebar: state => state.app.sidebar,
-  isLogin: state => state.user.isLogin,
-  id: state => state.user.id,
   name: state => state.user.name,
   language: state => state.user.language,
   roles: state => state.user.roles,

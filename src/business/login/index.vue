@@ -43,8 +43,6 @@
 </template>
 
 <script>
-import {login} from '@/api/user'
-
 export default {
   name: "Login",
   data() {
@@ -59,8 +57,9 @@ export default {
           {required: true, message: this.$tm('commons.validate.input', 'login.username'), trigger: 'blur'},
         ],
         password: [
-          {required: true, message: this.$tm('commons.validate.input', 'login.password'), trigger: 'blur'},
-          {min: 6, max: 30, message: this.$t('commons.validate.limit', [6, 30]), trigger: 'blur'}
+          // 先去掉方便测试
+          // {required: true, message: this.$tm('commons.validate.input', 'login.password'), trigger: 'blur'},
+          // {min: 6, max: 30, message: this.$t('commons.validate.limit', [6, 30]), trigger: 'blur'}
         ]
       },
       msg: '',
@@ -98,16 +97,12 @@ export default {
       this.$refs[form].validate((valid) => {
         if (valid) {
           this.loading = true;
-          login(this.form).then(response => {
-            if (response.data.success) {
-              this.$store.dispatch('user/login')
-              this.$router.push({path: this.redirect || '/', query: this.otherQuery})
-            } else {
-              this.msg = response.data.message
-            }
-            this.loading = false;
-          }).catch(() => {
-            this.loading = false;
+          this.$store.dispatch('user/login', this.form).then(() => {
+            this.$router.push({path: this.redirect || '/', query: this.otherQuery})
+            this.loading = false
+          }).catch(error => {
+            this.msg = error.message
+            this.loading = false
           })
         } else {
           return false;

@@ -17,6 +17,7 @@
     "core-js": "^3.6.5",
     "element-ui": "^2.15.0",
     "fit2cloud-ui": "git+https://github.com/fit2cloud-ui/fit2cloud-ui.git",
+    "js-cookie": "^2.2.1",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "vue": "^2.6.11",

@@ -7,9 +7,7 @@ import router from './router'
 import store from './store'
 import icons from './icons'
 import plugins from "@/plugins";
-
-store.dispatch('permission/generateRoutes', ['admin'])
-store.dispatch('user/getInfo', 'admin')
+import "./permission"
 
 Vue.config.productionTip = false
 

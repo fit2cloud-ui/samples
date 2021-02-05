@@ -2,10 +2,10 @@
 
 .header-menu {
   min-width: 150px;
+  color: #3E3E3D;
 
   &.el-menu {
     background-color: transparent;
-    color: inherit;
 
     &.el-menu--horizontal {
       border: none;
@@ -21,6 +21,7 @@
 }
 
 .header-menu-popper {
+  color: #3E3E3D;
   .el-menu--popup {
     min-width: 150px;
   }

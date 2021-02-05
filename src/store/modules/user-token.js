@@ -1,20 +1,18 @@
-/* 前后端不分离的登录方式*/
-import {login, getCurrentUser, updateInfo, logout} from '@/api/user'
+import {login, getCurrentUser, updateInfo, logout} from '@/api/user-token'
 import {resetRouter} from '@/router'
+import {getToken, setToken, removeToken} from '@/utils/token'
 
+/* 前后端不分离的登录办法*/
 const state = {
-  login: false,
+  token: getToken(),
   name: "",
   language: "",
   roles: []
 }
 
 const mutations = {
-  LOGIN: (state) => {
-    state.login = true
-  },
-  LOGOUT: (state) => {
-    state.login = false
+  SET_TOKEN: (state, token) => {
+    state.token = token
   },
   SET_NAME: (state, name) => {
     state.name = name
@@ -44,7 +42,9 @@ const actions = {
     const {username, password} = userInfo
     return new Promise((resolve, reject) => {
       login({username: username.trim(), password: password}).then(response => {
-        commit('LOGIN')
+        let token = response.data
+        commit('SET_TOKEN', token)
+        setToken(token)
         resolve(response)
       }).catch(error => {
         reject(error)
@@ -52,18 +52,15 @@ const actions = {
     })
   },
 
-  isLogin({commit, state, dispatch}) {
-    return new Promise((resolve) => {
-      if (state.login) {
+  isLogin({commit}) {
+    return new Promise((resolve, reject) => {
+      let token = getToken()
+      if (token) {
+        commit('SET_TOKEN', token);
         resolve(true)
-        return;
+      } else {
+        reject(false)
       }
-      dispatch("getCurrentUser").then(() => {
-        commit('LOGIN')
-        resolve(true)
-      }).catch(() => {
-        resolve(false)
-      })
     });
   },
 
@@ -94,8 +91,9 @@ const actions = {
 
   logout({commit}) {
     logout().then(() => {
-      commit('LOGOUT')
+      commit('SET_TOKEN', "");
       commit('SET_ROLES', [])
+      removeToken()
       resetRouter()
     })
   },

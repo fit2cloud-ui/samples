@@ -1,4 +1,4 @@
-/* 前后端不分离的登录方式 */
+/* 前后端分离的登录方式 */
 import {get, post, put} from "@/plugins/request"
 
 export function login(data) {
@@ -13,8 +13,8 @@ export function getCurrentUser() {
   return get("/samples/user/current")
 }
 
-export function updateInfo(id, data) {
-  return put("/samples/user/info/update/" + id, data)
+export function updateInfo(data) {
+  return put("/samples/user/info/update", data)
 }
 
 

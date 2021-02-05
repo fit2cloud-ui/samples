@@ -1,24 +1,35 @@
 const {success, error} = require("./result-holder")
+const TOKEN_KEY = "App-Token"
 
-/* 前后端不分离的接口，用Session验证登录*/
-let currentUser
+/* 前后端分离，用Token验证登录*/
+const tokens = {
+  admin: {
+    token: 'admin-token'
+  },
+  editor: {
+    token: 'editor-token'
+  },
+  readonly: {
+    token: 'readonly-token'
+  }
+}
 
 const users = {
-  admin: {
+  'admin-token': {
     id: "admin",
     name: 'Administrator',
     email: "admin@fit2cloud.com",
     roles: ['admin'],
     language: "zh-CN"
   },
-  editor: {
+  'editor-token': {
     id: "editor",
     name: 'Editor',
     email: "editor@fit2cloud.com",
     roles: ['editor'],
     language: "zh-CN"
   },
-  readonly: {
+  'readonly-token': {
     id: "readonly",
     name: 'Readonly User',
     email: "readonly@fit2cloud.com",
@@ -30,31 +41,31 @@ const users = {
 module.exports = [
   // user login
   {
-    url: '/samples/user/login',
+    url: '/samples/user-token/login',
     type: 'post',
     response: config => {
       const {username} = config.body
-      const user = users[username];
+      const {token} = tokens[username];
 
       // mock error
-      if (!user) {
+      if (!token) {
         return error("用户名或密码错误")
       }
-      currentUser = user;
-      return success(user)
+      return success(token)
     }
   },
 
   // get user info
   {
-    url: '/samples/user/current',
+    url: '/samples/user-token/info',
     type: 'get',
-    response: () => {
-      const info = currentUser
+    response: (config) => {
+      let token = config.headers[TOKEN_KEY]
+      const info = users[token]
 
       // mock error
       if (!info) {
-        return error("用户未登录")
+        return error("无法获取用户[" + token + "]详细信息")
       }
 
       return success(info)
@@ -76,7 +87,7 @@ module.exports = [
     url: '/samples/user/logout',
     type: 'post',
     response: () => {
-      currentUser = undefined;
+      // do something
       return success()
     }
   }
