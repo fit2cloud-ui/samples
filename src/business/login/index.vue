@@ -49,8 +49,8 @@ export default {
     return {
       loading: false,
       form: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       },
       rules: {
         username: [
@@ -58,8 +58,8 @@ export default {
         ],
         password: [
           // 先去掉方便测试
-          // {required: true, message: this.$tm('commons.validate.input', 'login.password'), trigger: 'blur'},
-          // {min: 6, max: 30, message: this.$t('commons.validate.limit', [6, 30]), trigger: 'blur'}
+          {required: true, message: this.$tm('commons.validate.input', 'login.password'), trigger: 'blur'},
+          {min: 6, max: 30, message: this.$t('commons.validate.limit', [6, 30]), trigger: 'blur'}
         ]
       },
       msg: '',

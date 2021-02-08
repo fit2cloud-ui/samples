@@ -2,19 +2,19 @@
 import {get, post, put} from "@/plugins/request"
 
 export function login(data) {
-  return post("/samples/user/login", data)
+  return post("/samples/user-token/login", data)
 }
 
 export function logout() {
-  return post("/samples/user/logout")
+  return post("/samples/user-token/logout")
 }
 
 export function getCurrentUser() {
-  return get("/samples/user/current")
+  return get("/samples/user-token/current")
 }
 
 export function updateInfo(data) {
-  return put("/samples/user/info/update", data)
+  return put("/samples/user-token/update", data)
 }
 
 

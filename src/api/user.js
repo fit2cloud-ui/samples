@@ -9,6 +9,10 @@ export function logout() {
   return post("/samples/user/logout")
 }
 
+export function isLogin() {
+  return get("/samples/user/is-login")
+}
+
 export function getCurrentUser() {
   return get("/samples/user/current")
 }

@@ -1,5 +1,5 @@
 /* 前后端不分离的登录方式*/
-import {login, getCurrentUser, updateInfo, logout} from '@/api/user'
+import {login, isLogin, getCurrentUser, updateInfo, logout} from '@/api/user'
 import {resetRouter} from '@/router'
 
 const state = {
@@ -52,13 +52,13 @@ const actions = {
     })
   },
 
-  isLogin({commit, state, dispatch}) {
+  isLogin({commit}) {
     return new Promise((resolve) => {
       if (state.login) {
         resolve(true)
         return;
       }
-      dispatch("getCurrentUser").then(() => {
+      isLogin().then(() => {
         commit('LOGIN')
         resolve(true)
       }).catch(() => {

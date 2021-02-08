@@ -7,6 +7,7 @@ import router from './router'
 import store from './store'
 import icons from './icons'
 import plugins from "@/plugins";
+import directives from "@/directive";
 import "./permission"
 
 Vue.config.productionTip = false
@@ -17,6 +18,7 @@ Vue.use(ElementUI, {
 });
 Vue.use(icons);
 Vue.use(plugins);
+Vue.use(directives);
 
 new Vue({
   el: '#app',

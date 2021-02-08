@@ -1,17 +1,27 @@
+@import "./variables";
+
 @mixin sidebar-base-item {
-  margin: 4px 10px;
   padding-left: 10px !important;
   border-radius: 2px;
 }
 
 @mixin menu-item {
   @include sidebar-base-item;
+  margin: 2px 10px;
   line-height: $menu-height;
   height: $menu-height;
 }
 
 @mixin submenu-item {
   @include sidebar-base-item;
+  margin: 2px 10px;
+  line-height: $submenu-height;
+  height: $submenu-height;
+}
+
+@mixin popper-submenu-item {
+  @include sidebar-base-item;
+  margin: 2px 0;
   line-height: $submenu-height;
   height: $submenu-height;
 }
@@ -50,7 +60,6 @@
   }
 
   a {
-    display: inline-block;
     width: 100%;
     overflow: hidden;
   }
@@ -86,7 +95,7 @@
         .el-submenu__title, {
           @include sidebar-item-active;
 
-          .sub-el-icon {
+          .sub-el-icon, span {
             color: #FFF;
           }
         }
@@ -162,6 +171,12 @@
   }
 
   .nest-menu .el-submenu > .el-submenu__title, .el-menu-item {
+    &.is-active {
+      @include sidebar-item-active
+    }
+
+    @include popper-submenu-item;
+
     span {
       padding-left: 30px;
     }

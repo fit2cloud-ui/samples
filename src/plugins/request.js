@@ -74,7 +74,8 @@ const promise = (request, loading = {}) => {
         reject(response.data)
       }
       loading.status = false;
-    }).catch(() => {
+    }).catch(error => {
+      reject(error)
       loading.status = false;
     })
   })

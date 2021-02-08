@@ -38,6 +38,15 @@ const message = {
     title: "登录 FIT2CLOUD",
     welcome: "欢迎回来，请输入用户名和密码登录",
     expires: '认证信息已过期，请重新登录',
+  },
+  system_setting: {
+    title: "系统设置",
+    user_management: {
+      title: "用户管理",
+    },
+    params_setting: {
+      title: "参数设置",
+    }
   }
 }
 

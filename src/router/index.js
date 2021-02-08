@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Directive from "@/router/modules/directives";
+import SystemSetting from "@/router/modules/system-setting";
 
 // 修复路由变更后报错的问题
 const routerPush = Router.prototype.push;
@@ -9,12 +11,12 @@ Router.prototype.push = function push(location) {
 
 Vue.use(Router)
 
-import AppLayout from '@/business/app-layout/horizontal-layout'
+import Layout from '@/business/app-layout/horizontal-layout'
 
 export const constantRoutes = [
   {
     path: '/redirect',
-    component: AppLayout,
+    component: Layout,
     hidden: true,
     children: [
       {
@@ -30,7 +32,7 @@ export const constantRoutes = [
   },
   {
     path: '/',
-    component: AppLayout,
+    component: Layout,
     redirect: '/dashboard',
     children: [
       {
@@ -40,41 +42,17 @@ export const constantRoutes = [
         meta: {title: 'Dashboard', icon: 'el-icon-s-marketing', affix: true}
       }
     ]
-  },
-  {
-    path: '/example',
-    component: AppLayout,
-    redirect: '/example/list',
-    name: 'Example',
-    meta: {
-      title: 'Example',
-      icon: 'el-icon-s-help'
-    },
-    children: [
-      {
-        path: 'create',
-        component: () => import('@/business/dashboard'),
-        name: 'CreateArticle',
-        meta: {title: 'Create Article', icon: 'el-icon-s-help'}
-      },
-      {
-        path: 'edit/:id(\\d+)',
-        component: () => import('@/business/dashboard'),
-        name: 'EditArticle',
-        meta: {title: 'Edit Article', noCache: true, activeMenu: '/example/list'},
-        hidden: true
-      },
-      {
-        path: 'list',
-        component: () => import('@/business/dashboard'),
-        name: 'ArticleList',
-        meta: {title: 'Article List'}
-      }
-    ]
-  },
+  }
 ]
 
-export const asyncRoutes = []
+/**
+ * 用户登录后根据角色加载的路由
+ */
+export const rolesRoutes = [
+  Directive,
+  SystemSetting,
+  {path: '*', redirect: '/', hidden: true}
+]
 
 const createRouter = () => new Router({
   scrollBehavior: () => ({y: 0}),

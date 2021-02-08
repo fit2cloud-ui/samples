@@ -45,6 +45,18 @@ module.exports = [
     }
   },
 
+  {
+    url: '/samples/user/is-login',
+    type: 'get',
+    response: () => {
+      if (currentUser) {
+        return success()
+      } else {
+        return error()
+      }
+    }
+  },
+
   // get user info
   {
     url: '/samples/user/current',

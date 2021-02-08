@@ -4,6 +4,8 @@ $--color-success: #87CB16;
 $--color-warning: #FFA534;
 $--color-danger: #FB404B;
 
+$--box-shadow-light: 0 1px 4px 0 rgb(0 0 0 / 14%);
+
 // fit2cloud-ui的variables加载了element-ui的变量
 @import "~fit2cloud-ui/src/styles/common/variables";
 
