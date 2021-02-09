@@ -12,12 +12,13 @@ $sidebar-bg-gradient: linear-gradient(to bottom right, #30373D, #3E3E3D);
 /* menu */
 $menu-color: #BFCBD9;
 $menu-active-color: #FFF;
-$menu-active-bg-color: #5E5E5E;
-$menu-active-border-color: $--color-primary;
+$menu-active-bg-color: rgb(200 200 200 / 20%);
 $menu-bg-color: transparent;
 $menu-bg-color-hover: #4A4B4D;
 $menu-height: 50px;
 $submenu-height: 40px;
+$submenu-active-color: #FFF;
+$submenu-active-bg-color: $menu-active-bg-color;
 
 /* logo */
 $logo-height: 40px;

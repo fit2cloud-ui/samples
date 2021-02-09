@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Directive from "@/router/modules/directives";
-import SystemSetting from "@/router/modules/system-setting";
+
+// 加载modules中的路由
+const modules = require.context('./modules', true, /\.js$/)
 
 // 修复路由变更后报错的问题
 const routerPush = Router.prototype.push;
@@ -49,8 +50,7 @@ export const constantRoutes = [
  * 用户登录后根据角色加载的路由
  */
 export const rolesRoutes = [
-  Directive,
-  SystemSetting,
+  ...modules.keys().map(key => modules(key).default),
   {path: '*', redirect: '/', hidden: true}
 ]
 

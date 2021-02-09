@@ -26,9 +26,14 @@
   height: $submenu-height;
 }
 
-@mixin sidebar-item-active {
+@mixin menu-item-active {
   color: $menu-active-color;
   background-color: $menu-active-bg-color;
+}
+
+@mixin submenu-item-active {
+  color: $submenu-active-color;
+  background-color: $submenu-active-bg-color;
 }
 
 .sidebar {
@@ -78,7 +83,7 @@
       }
 
       &.is-active {
-        @include sidebar-item-active;
+        @include menu-item-active;
       }
     }
 
@@ -93,7 +98,7 @@
 
       &.is-active {
         .el-submenu__title, {
-          @include sidebar-item-active;
+          @include menu-item-active;
 
           .sub-el-icon, span {
             color: #FFF;
@@ -109,7 +114,7 @@
         }
 
         &.is-active {
-          @include sidebar-item-active
+          @include submenu-item-active
         }
       }
     }
@@ -172,7 +177,7 @@
 
   .nest-menu .el-submenu > .el-submenu__title, .el-menu-item {
     &.is-active {
-      @include sidebar-item-active
+      @include submenu-item-active
     }
 
     @include popper-submenu-item;

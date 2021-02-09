@@ -1,10 +1,20 @@
 <template>
-  <div>用户管理</div>
+  <div class="app-container">
+    <dynamic-table>
+      <template #header>
+        <filter-tools></filter-tools>
+      </template>
+    </dynamic-table>
+  </div>
 </template>
 
 <script>
+import DynamicTable from "@/components/dynamic-table";
+import FilterTools from "@/components/filter-tools";
+
 export default {
-  name: "UserManagement"
+  name: "UserManagement",
+  components: {FilterTools, DynamicTable}
 }
 </script>
 
