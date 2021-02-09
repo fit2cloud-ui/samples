@@ -7,7 +7,6 @@ const Directive = {
   meta: {
     title: "指令示例",
     icon: 'el-icon-setting',
-    roles: ['admin', 'editor']
   },
   children: [
     {
