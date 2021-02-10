@@ -7,10 +7,7 @@
         :collapse="isCollapse"
         :collapse-transition="false"
         :unique-opened="false"
-        :text-color="variables.menuColor"
-        :active-text-color="variables.menuActiveColor"
-        mode="vertical"
-      >
+        mode="vertical">
         <sidebar-item v-for="route in permission_routes" :key="route.path" :item="route" :base-path="route.path"/>
       </el-menu>
     </el-scrollbar>
@@ -20,7 +17,6 @@
 <script>
 import {mapGetters} from 'vuex'
 import SidebarItem from './SidebarItem'
-import variables from '@/styles/components/layout/variables.scss'
 import Logo from "@/components/layout/sidebar/Logo";
 
 export default {
@@ -42,9 +38,6 @@ export default {
     isCollapse() {
       return !this.sidebar.opened
     },
-    variables() {
-      return variables
-    },
   }
 }
 </script>
@@ -55,6 +48,7 @@ export default {
 @mixin sidebar-base-item {
   padding-left: 10px !important;
   border-radius: 2px;
+  color: $menu-color;
 }
 
 @mixin menu-item {
