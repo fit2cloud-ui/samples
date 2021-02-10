@@ -77,9 +77,12 @@ module.exports = [
   {
     url: '/samples/user/info/update',
     type: 'put',
-    response: () => {
-      // do something
-      return success()
+    response: config => {
+      const {language} = config.body
+      if (currentUser) {
+        currentUser.language = language;
+      }
+      return success(currentUser)
     }
   },
 

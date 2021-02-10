@@ -41,11 +41,13 @@ export default {
   position: relative;
   transition: width 0.28s;
   width: $sidebar-open-width;
+  min-width: $sidebar-open-width;
   background-color: $sidebar-bg-color;
   background-image: $sidebar-bg-gradient;
 
   &.is-collapse {
     width: $sidebar-close-width;
+    min-width: $sidebar-close-width;
   }
 }
 

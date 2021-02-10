@@ -76,9 +76,12 @@ module.exports = [
   {
     url: '/samples/user/info/update',
     type: 'put',
-    response: () => {
-      // do something
-      return success()
+    response: config => {
+      let token = config.headers[TOKEN_KEY]
+      const {language} = config.body
+      users[token].language = language;
+      
+      return success(users[token])
     }
   },
 

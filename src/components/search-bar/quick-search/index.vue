@@ -64,15 +64,11 @@ export default {
   }
 
   .clear-button {
-    font-size: 16px;
     cursor: pointer;
+    @include click-active-scale;
 
     &:hover {
       color: $--color-primary;
-    }
-
-    &:active {
-      transform: scale(0.9);
     }
   }
 }

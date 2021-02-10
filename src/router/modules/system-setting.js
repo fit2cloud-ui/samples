@@ -1,12 +1,11 @@
 import Layout from "@/business/app-layout/horizontal-layout";
-import i18n from "@/i18n";
 
 const SystemSetting = {
   path: '/system-setting',
   component: Layout,
   name: 'SystemSetting',
   meta: {
-    title: i18n.t("system_setting.title"),
+    title: "route.system_setting",
     icon: 'el-icon-setting',
     roles: ['admin']
   },
@@ -16,7 +15,7 @@ const SystemSetting = {
       component: () => import('@/business/system-setting/UserManagement'),
       name: "UserManagement",
       meta: {
-        title: i18n.t("system_setting.user_management.title"),
+        title: "route.user_management",
         roles: ['admin']
       }
     },
@@ -25,7 +24,7 @@ const SystemSetting = {
       component: () => import('@/business/system-setting/ParamsSetting'),
       name: "ParamsSetting",
       meta: {
-        title: i18n.t("system_setting.params_setting.title"),
+        title: "route.params_setting",
         roles: ['admin']
       }
     }

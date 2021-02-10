@@ -1,12 +1,13 @@
 import {login, getCurrentUser, updateInfo, logout} from '@/api/user-token'
 import {resetRouter} from '@/router'
 import {getToken, setToken, removeToken} from '@/utils/token'
+import {getLanguage, setLanguage} from "@/i18n";
 
 /* 前后端不分离的登录办法*/
 const state = {
   token: getToken(),
   name: "",
-  language: "",
+  language: getLanguage(),
   roles: []
 }
 
@@ -19,22 +20,11 @@ const mutations = {
   },
   SET_LANGUAGE: (state, language) => {
     state.language = language
-    localStorage.setItem('language', language)
+    setLanguage(language)
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
   }
-}
-
-const getLanguage = lang => {
-  let language = lang
-  if (!language) {
-    language = localStorage.getItem('language')
-  }
-  if (!language) {
-    language = (navigator.language || navigator.browserLanguage).toLowerCase()
-  }
-  return language;
 }
 
 const actions = {
@@ -70,7 +60,7 @@ const actions = {
         const {name, roles, language} = response.data
         commit('SET_NAME', name)
         commit('SET_ROLES', roles)
-        commit('SET_LANGUAGE', getLanguage(language))
+        commit('SET_LANGUAGE', language)
         resolve(response.data)
       }).catch(error => {
         reject(error)

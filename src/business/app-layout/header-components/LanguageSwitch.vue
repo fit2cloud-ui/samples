@@ -36,7 +36,6 @@ export default {
   },
   methods: {
     setLanguage(lang) {
-      this.$setLang(lang)
       this.$store.dispatch('user/setLanguage', lang).then(() => {
         // do something
       })
