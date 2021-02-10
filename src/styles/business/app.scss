@@ -18,7 +18,10 @@ body {
   height: 100%;
 }
 
-a:focus,
+:focus {
+  outline: none;
+}
+
 a:active {
   outline: none;
 }

@@ -45,8 +45,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import "~@/styles/common/variables.scss";
+<style lang="scss">
+@import "~@/styles/business/header-menu.scss";
 
 .header-menu {
   .language-icon {

@@ -1,7 +1,8 @@
 <template>
   <div class="filter-tools">
     <div class="filter-content">
-      <quick-search/>
+      <quick-search placeholder="根据 ID/名称 搜索" @exec="exec"/>
+      <complex-search @exec="exec"/>
     </div>
     <div class="filter-buttons">
       <el-button circle icon="el-icon-close" size="medium"></el-button>
@@ -15,9 +16,16 @@
 
 <script>
 import QuickSearch from "@/components/filter-tools/QuickSearch";
+import ComplexSearch from "@/components/filter-tools/complex-search";
+
 export default {
   name: "FilterTools",
-  components: {QuickSearch}
+  components: {ComplexSearch, QuickSearch},
+  methods: {
+    exec(value) {
+      console.log(value)
+    }
+  }
 }
 </script>
 
@@ -42,6 +50,7 @@ export default {
 
   .filter-content {
     @include flex-row(flex-start, center);
+    width: 100%;
     height: 100%;
   }
 

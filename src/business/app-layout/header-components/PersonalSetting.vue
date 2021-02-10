@@ -42,3 +42,7 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import "~@/styles/business/header-menu.scss";
+</style>
