@@ -9,12 +9,13 @@ import store from './store'
 import icons from './icons'
 import plugins from "./plugins";
 import directives from "./directive";
+import filters from "./filters";
 import "./permission"
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI, {
-  size: 'small',
+  size: 'medium',
   i18n: (key, value) => i18n.t(key, value)
 });
 Vue.use(Fit2CloudUI, {
@@ -23,6 +24,7 @@ Vue.use(Fit2CloudUI, {
 Vue.use(icons);
 Vue.use(plugins);
 Vue.use(directives);
+Vue.use(filters);
 
 new Vue({
   el: '#app',

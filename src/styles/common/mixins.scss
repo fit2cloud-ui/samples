@@ -7,9 +7,3 @@
     align-items: $align;
   }
 }
-
-@mixin click-active-scale($scale:0.95) {
-  &:active {
-    transform: scale($scale);
-  }
-}
