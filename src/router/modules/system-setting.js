@@ -12,7 +12,7 @@ const SystemSetting = {
   children: [
     {
       path: 'user-management',
-      component: () => import('@/business/system-setting/UserManagement'),
+      component: () => import('@/business/system-setting/user-management/UserManagement'),
       name: "UserManagement",
       meta: {
         title: "route.user_management",

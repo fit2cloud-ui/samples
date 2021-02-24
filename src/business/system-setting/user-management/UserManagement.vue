@@ -1,18 +1,26 @@
 <template>
   <layout-content>
-    <fu-dynamic-table header="动态表格"
-                      :data="data"
-                      :buttons="buttons"
-                      :search-config="searchConfig"
-                      :pagination-config="paginationConfig"
-                      @search="search">
+    <fu-complex-table
+      :data="data"
+      :columns="columns"
+      :buttons="buttons"
+      :search-config="searchConfig"
+      :pagination-config="paginationConfig"
+      @search="search">
+      <template #toolbar>
+        <fu-search-bar v-bind="searchConfig" @exec="search">
+          <fu-column-select :columns="columns"/>
+        </fu-search-bar>
+      </template>
+      <el-table-column type="selection" fix></el-table-column>
+      <el-table-column label="ID" min-width="100" prop="id" fix/>
       <el-table-column label="姓名" min-width="100" prop="name" fix/>
       <el-table-column label="Email" min-width="100" prop="email"/>
       <el-table-column label="角色" min-width="100" prop="roles"/>
       <el-table-column label="语言" min-width="100">
         <template v-slot:default="{row}">
           <el-tag v-if="row.language === 'zh-CN'" type="danger" size="small">中文</el-tag>
-          <el-tag v-if="row.language === 'en-US'" size="small">英文</el-tag>
+          <el-tag v-if="row.language === 'en-US'" size="small">English</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="创建时间" :show="false">
@@ -20,7 +28,8 @@
           {{ row.createTime | datetimeFormat }}
         </template>
       </el-table-column>
-    </fu-dynamic-table>
+      <fu-table-operations :buttons="buttons" label="操作" fix/>
+    </fu-complex-table>
   </layout-content>
 </template>
 
@@ -28,43 +37,38 @@
 import LayoutContent from "@/components/layout/LayoutContent";
 import {listUsers} from "@/api/user-management"
 
+const buttonClick = function (row) {
+  console.log(this.label + ": " + row.id)
+}
+
 export default {
   name: "UserManagement",
   components: {LayoutContent},
   data() {
     return {
+      columns: [],
       buttons: [
         {
-          label: "编辑", icon: "el-icon-edit", click: (row) => {
-            console.log("编辑:" + row.username)
-          }
+          label: "编辑", icon: "el-icon-edit", click: this.edit
         }, {
-          label: "执行", icon: "el-icon-video-play", click: (row) => {
-            console.log("执行:" + row.username)
-          }
+          label: "执行", icon: "el-icon-video-play", click: buttonClick
         }, {
-          label: "删除", icon: "el-icon-delete", type: "danger", click: (row) => {
-            console.log("删除:" + row.username)
-          }, show: true
+          label: "删除", icon: "el-icon-delete", type: "danger", click: buttonClick, show: true
         }, {
-          label: "复制", icon: "el-icon-document-copy", click: (row) => {
-            console.log("复制:" + row.username)
-          }
+          label: "复制", icon: "el-icon-document-copy", click: buttonClick
         }, {
-          label: "定时任务", icon: "el-icon-timer", click: (row) => {
-            console.log("定时任务:" + row.username)
-          }
+          label: "定时任务", icon: "el-icon-timer", click: buttonClick
         }
       ],
       searchConfig: {
         quickPlaceholder: "按 姓名/邮箱 搜索",
         components: [
-          {field: "name", label: "姓名", component: "FuInputComponent", defaultOperator: "eq"},
-          {field: "email", label: "Email", component: "FuInputComponent"},
+          {field: "name", label: "姓名", component: "FuComplexInput", defaultOperator: "eq"},
+          {field: "email", label: "Email", component: "FuComplexInput"},
           {
             field: "status",
             label: "状态",
-            component: "FuSelectComponent",
+            component: "FuComplexSelect",
             options: [
               {label: "运行中", value: "Running"},
               {label: "成功", value: "Success"},
@@ -72,25 +76,27 @@ export default {
             ],
             multiple: true
           },
-          {field: "create_time", label: "创建时间", component: "FuDateTimeComponent"},
+          {field: "create_time", label: "创建时间", component: "FuComplexDateTime"},
         ]
       },
       paginationConfig: {
         currentPage: 1,
-        pageSize: 5,
+        pageSize: 10,
         total: 0,
       },
       data: [],
     }
   },
   methods: {
+    edit(row) {
+      console.log("编辑: ", row)
+    },
     search(condition) {
       console.log(condition) // demo只查看搜索条件，没有搜索的实现
       const {currentPage, pageSize} = this.paginationConfig
       listUsers(currentPage, pageSize).then(response => {
-        console.log(response)
-        this.paginationConfig.total = response.data.length
         this.data = response.data.items
+        this.paginationConfig.total = response.data.total
       })
     }
   },
