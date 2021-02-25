@@ -1,17 +1,12 @@
 <template>
   <layout-content>
-    <fu-complex-table
+    <complex-table
       :data="data"
       :columns="columns"
       :buttons="buttons"
       :search-config="searchConfig"
       :pagination-config="paginationConfig"
       @search="search">
-      <template #toolbar>
-        <fu-search-bar v-bind="searchConfig" @exec="search">
-          <fu-column-select :columns="columns"/>
-        </fu-search-bar>
-      </template>
       <el-table-column type="selection" fix></el-table-column>
       <el-table-column label="ID" min-width="100" prop="id" fix/>
       <el-table-column label="姓名" min-width="100" prop="name" fix/>
@@ -29,13 +24,14 @@
         </template>
       </el-table-column>
       <fu-table-operations :buttons="buttons" label="操作" fix/>
-    </fu-complex-table>
+    </complex-table>
   </layout-content>
 </template>
 
 <script>
 import LayoutContent from "@/components/layout/LayoutContent";
 import {listUsers} from "@/api/user-management"
+import ComplexTable from "@/components/complex-table";
 
 const buttonClick = function (row) {
   console.log(this.label + ": " + row.id)
@@ -43,7 +39,7 @@ const buttonClick = function (row) {
 
 export default {
   name: "UserManagement",
-  components: {LayoutContent},
+  components: {ComplexTable, LayoutContent},
   data() {
     return {
       columns: [],
