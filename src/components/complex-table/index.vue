@@ -8,7 +8,7 @@
       <slot name="toolbar">
         <fu-search-bar v-bind="searchConfig" @exec="search">
           <slot name="buttons"></slot>
-          <fu-column-select :columns="columns"/>
+          <fu-table-column-select :columns="columns"/>
         </fu-search-bar>
       </slot>
     </div>

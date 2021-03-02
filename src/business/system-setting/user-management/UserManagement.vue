@@ -1,6 +1,7 @@
 <template>
   <layout-content>
     <complex-table
+      @select="select"
       :data="data"
       :columns="columns"
       :buttons="buttons"
@@ -32,6 +33,8 @@
 import LayoutContent from "@/components/layout/LayoutContent";
 import {listUsers} from "@/api/user-management"
 import ComplexTable from "@/components/complex-table";
+import CustomCondition from "./CustomCondtion";
+import {checkPermission} from "@/utils/permisstion"
 
 const buttonClick = function (row) {
   console.log(this.label + ": " + row.id)
@@ -49,7 +52,10 @@ export default {
         }, {
           label: "执行", icon: "el-icon-video-play", click: buttonClick
         }, {
-          label: "删除", icon: "el-icon-delete", type: "danger", click: buttonClick, show: true
+          label: "删除", icon: "el-icon-delete", type: "danger", click: buttonClick
+        }, {
+          label: "删除(权限)", icon: "el-icon-delete", type: "danger", click: buttonClick,
+          show: checkPermission('editor') // 必须有editor权限才能看到
         }, {
           label: "复制", icon: "el-icon-document-copy", click: buttonClick
         }, {
@@ -73,6 +79,7 @@ export default {
             multiple: true
           },
           {field: "create_time", label: "创建时间", component: "FuComplexDateTime"},
+          {field: "user", component: CustomCondition}, // 如何自定义搜索控件，看CustomCondition
         ]
       },
       paginationConfig: {
@@ -84,6 +91,9 @@ export default {
     }
   },
   methods: {
+    select(selection) {
+      console.log(selection)
+    },
     edit(row) {
       console.log("编辑: ", row)
     },
