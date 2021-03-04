@@ -102,10 +102,6 @@ export default {
 .sidebar {
   height: 100%;
 
-  .horizontal-collapse-transition {
-    transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
-  }
-
   .el-scrollbar {
     box-sizing: border-box;
     padding: 10px 0;
@@ -242,7 +238,11 @@ export default {
 }
 
 .sidebar-popper {
-  display: block;
+  //display: block !important;
+
+  .el-menu--popup {
+    padding: 0;
+  }
 
   & > .el-menu {
     display: block;
@@ -257,6 +257,7 @@ export default {
   .nest-menu .el-submenu > .el-submenu__title, .el-menu-item {
     &.is-active {
       color: $submenu-active-color;
+      @include menu-active-prefix;
     }
 
     @include popper-submenu-item;
@@ -278,7 +279,7 @@ export default {
     }
   }
 
-  > .el-menu--popup {
+  .el-menu--popup {
     max-height: 100vh;
     overflow-y: auto;
 
