@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar-logo-container" :class="{'collapse':collapse}">
-    <transition name="sidebar-logo-fade">
+    <transition name="sidebar-logo-fade" mode="out-in">
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
         <img v-if="collapseLogo" :src="collapseLogo" class="sidebar-logo" alt="Sidebar Logo">
       </router-link>
@@ -50,32 +50,32 @@ export default {
   }
 
   & .sidebar-logo-link {
+    padding: 0 20px;
     display: flex;
     align-items: center;
     height: 100%;
-    width: 100%;
+    width: auto;
 
     & .sidebar-logo {
-      margin-left: #{$sidebar-close-width / 4};
       height: $logo-height;
       vertical-align: middle;
     }
   }
 
   &.collapse {
-    .sidebar-logo-link {
-      justify-content: center;
-    }
-
     .sidebar-logo {
-      margin: 0;
+      margin: auto;
     }
   }
 }
 
 .sidebar-logo-fade-enter-active {
-  transition: opacity 0.3s;
-  transition-delay: 0.1s
+  transition: opacity 0.1s;
+  transition-delay: 0.1s;
+}
+
+.sidebar-logo-fade-leave-active {
+  opacity: 0;
 }
 
 .sidebar-logo-fade-enter,
