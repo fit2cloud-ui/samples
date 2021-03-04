@@ -76,6 +76,9 @@ export default {
   font-weight: 600;
   color: $menu-active-color;
   background-color: $menu-active-bg-color;
+  &:hover {
+    background-color: $menu-bg-color-hover;
+  }
 }
 
 @mixin submenu-item-active {
@@ -238,8 +241,6 @@ export default {
 }
 
 .sidebar-popper {
-  //display: block !important;
-
   .el-menu--popup {
     padding: 0;
   }
