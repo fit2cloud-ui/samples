@@ -8,7 +8,10 @@
         :collapse-transition="false"
         :unique-opened="false"
         mode="vertical">
-        <sidebar-item v-for="route in permission_routes" :key="route.path" :item="route" :base-path="route.path"/>
+        <sidebar-item v-for="route in permission_routes"
+                      :key="route.path"
+                      :item="route"
+                      :base-path="route.path"/>
       </el-menu>
     </el-scrollbar>
   </div>
@@ -46,40 +49,54 @@ export default {
 @import "~@/styles/common/variables";
 
 @mixin sidebar-base-item {
-  padding-left: 10px !important;
+  padding-left: 20px !important;
   border-radius: 2px;
   color: $menu-color;
 }
 
 @mixin menu-item {
   @include sidebar-base-item;
-  margin: 2px 10px;
   line-height: $menu-height;
   height: $menu-height;
 }
 
 @mixin submenu-item {
   @include sidebar-base-item;
-  margin: 2px 10px;
   line-height: $submenu-height;
   height: $submenu-height;
 }
 
 @mixin popper-submenu-item {
   @include sidebar-base-item;
-  margin: 2px 0;
   line-height: $submenu-height;
   height: $submenu-height;
 }
 
 @mixin menu-item-active {
+  font-weight: 600;
   color: $menu-active-color;
   background-color: $menu-active-bg-color;
 }
 
 @mixin submenu-item-active {
+  font-weight: 600;
   color: $submenu-active-color;
   background-color: $submenu-active-bg-color;
+  &:hover {
+    background-color: $submenu-bg-color-hover;
+  }
+}
+
+@mixin menu-active-prefix {
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1px;
+    bottom: 1px;
+    width: $menu-active-prefix-width;
+    background-color: $menu-active-prefix-color;
+  }
 }
 
 .sidebar {
@@ -115,6 +132,12 @@ export default {
     overflow: hidden;
   }
 
+  .is-opened {
+    .el-menu {
+      background-color: $menu-open-bg-color;
+    }
+  }
+
   .el-menu {
     border: none;
     height: 100%;
@@ -130,6 +153,7 @@ export default {
 
       &.is-active {
         @include menu-item-active;
+        @include menu-active-prefix;
       }
     }
 
@@ -143,7 +167,13 @@ export default {
       }
 
       &.is-active {
-        .el-submenu__title, {
+        &:not(.is-opened) {
+          .el-submenu__title {
+            @include menu-active-prefix;
+          }
+        }
+
+        .el-submenu__title {
           @include menu-item-active;
 
           .sub-el-icon, span {
@@ -156,11 +186,12 @@ export default {
         @include submenu-item;
 
         &:hover {
-          background-color: $menu-bg-color-hover;
+          background-color: $submenu-bg-color-hover;
         }
 
         &.is-active {
-          @include submenu-item-active
+          @include submenu-item-active;
+          @include menu-active-prefix;
         }
       }
     }
@@ -211,6 +242,8 @@ export default {
 }
 
 .sidebar-popper {
+  display: block;
+
   & > .el-menu {
     display: block;
     background-color: $sidebar-bg-color;
@@ -223,7 +256,7 @@ export default {
 
   .nest-menu .el-submenu > .el-submenu__title, .el-menu-item {
     &.is-active {
-      @include submenu-item-active
+      color: $submenu-active-color;
     }
 
     @include popper-submenu-item;
@@ -241,7 +274,7 @@ export default {
     }
 
     &:hover {
-      background-color: $menu-bg-color-hover;
+      background-color: $submenu-bg-color-hover;
     }
   }
 
