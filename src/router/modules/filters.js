@@ -5,8 +5,8 @@ const Filters = {
   component: Layout,
   name: 'Filters',
   meta: {
-    title: "过滤器示例",
-    icon: 'el-icon-setting',
+    title: "过滤器",
+    icon: 'el-icon-circle-check',
   }
 }
 export default Filters

@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <layout-content>
     <h2>切换admin、editor、readonly用户看到不同的内容</h2>
     <br/>
 
@@ -18,12 +18,15 @@
     <div class="permission-block">
       任何人都能看到
     </div>
-  </div>
+  </layout-content>
 </template>
 
 <script>
+import LayoutContent from "@/components/layout/LayoutContent";
+
 export default {
-  name: "PermissionDemo"
+  name: "PermissionDemo",
+  components: {LayoutContent}
 }
 </script>
 

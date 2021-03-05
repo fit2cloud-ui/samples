@@ -5,8 +5,8 @@ const Directive = {
   component: Layout,
   name: 'Directive',
   meta: {
-    title: "指令示例",
-    icon: 'el-icon-setting',
+    title: "指令",
+    icon: 'el-icon-cpu',
   },
   children: [
     {

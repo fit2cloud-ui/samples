@@ -1,5 +1,5 @@
 import ClickOutside from "element-ui/src/utils/clickoutside";
-import permission from "@/directive/permission";
+import permission from "./permission";
 
 export default {
   install(Vue) {
