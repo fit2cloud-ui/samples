@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import "@/styles/index.scss"
 import Fit2CloudUI from 'fit2cloud-ui';
-// import Fit2CloudUI from './external/fit2cloud-ui.common';
 import ElementUI from 'element-ui';
 import App from './App.vue'
 import i18n from "./i18n";

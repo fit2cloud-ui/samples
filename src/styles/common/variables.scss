@@ -1,5 +1,5 @@
 /* Element 变量 */
-$--color-primary: #447DF7;
+$--color-primary: #004A71;
 $--color-success: #87CB16;
 $--color-warning: #FFA534;
 $--color-danger: #FB404B;
@@ -7,6 +7,9 @@ $--color-danger: #FB404B;
 $--box-shadow-light: 0 1px 4px 0 rgb(0 0 0 / 14%);
 
 $--color-text-primary: #3c4858;
+
+/* fit2cloud-ui的variables加载了element-ui的变量 */
+@import "~fit2cloud-ui/src/styles/common/variables";
 
 /* layout */
 $layout-bg-color: #F2F2F2;
@@ -44,9 +47,6 @@ $header-padding: 30px;
 
 /* main */
 $view-padding: 15px;
-
-/* fit2cloud-ui的variables加载了element-ui的变量 */
-@import "~fit2cloud-ui/src/styles/common/variables";
 
 :export {
   theme: $--color-primary;
