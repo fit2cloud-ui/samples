@@ -1,11 +1,11 @@
-import router from './router'
-import store from './store'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
+import router from "./router"
+import store from "./store"
+import NProgress from "nprogress"
+import "nprogress/nprogress.css"
 
 NProgress.configure({showSpinner: false}) // NProgress Configuration
 
-const whiteList = ['/login'] // no redirect whitelist
+const whiteList = ["/login"] // no redirect whitelist
 
 const generateRoutes = async (to, from, next) => {
   const hasRoles = store.getters.roles && store.getters.roles.length > 0
@@ -13,12 +13,12 @@ const generateRoutes = async (to, from, next) => {
     next()
   } else {
     try {
-      const {roles} = await store.dispatch('user/getCurrentUser')
-      const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
+      const {roles} = await store.dispatch("user/getCurrentUser")
+      const accessRoutes = await store.dispatch("permission/generateRoutes", roles)
       router.addRoutes(accessRoutes)
       next({...to, replace: true})
     } catch (error) {
-      await store.dispatch('user/logout')
+      await store.dispatch("user/logout")
       next(`/login?redirect=${to.path}`)
       NProgress.done()
     }
@@ -29,11 +29,11 @@ const generateRoutes = async (to, from, next) => {
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
 
-  const isLogin = await store.dispatch('user/isLogin') // 或者user-token/isLogin
+  const isLogin = await store.dispatch("user/isLogin") // 或者user-token/isLogin
 
   if (isLogin) {
-    if (to.path === '/login') {
-      next({path: '/'})
+    if (to.path === "/login") {
+      next({path: "/"})
       NProgress.done()
     } else {
       await generateRoutes(to, from, next)

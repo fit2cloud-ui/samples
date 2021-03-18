@@ -1,5 +1,11 @@
 <template>
   <div class="content-container">
+    <div class="content-container__header" v-if="$slots.header">
+      <slot name="header"></slot>
+    </div>
+    <div class="content-container__toolbar" v-if="$slots.toolbar">
+      <slot name="toolbar"></slot>
+    </div>
     <slot></slot>
   </div>
 </template>
@@ -11,6 +17,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "~@/styles/common/mixins.scss";
 @import "~@/styles/common/variables";
 
 .content-container {
@@ -23,5 +30,15 @@ export default {
   border-radius: 4px;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 14%);
   box-sizing: border-box;
+
+  .content-container__header {
+    @include flex-row(flex-start, center);
+    height: 60px;
+    font-size: 20px;
+  }
+
+  .content-container__toolbar {
+    @include flex-row(flex-start, center);
+  }
 }
 </style>

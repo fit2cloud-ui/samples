@@ -30,7 +30,6 @@ export default {
     },
     getCondition() { // 点击确认时调用
       let {field, label, operator, operatorLabel, value, valueLabel} = this
-      // 必须返回ComplexCondition类型的对象
       return new ComplexCondition({field, label, operator, operatorLabel, value, valueLabel})
     }
   },

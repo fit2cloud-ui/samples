@@ -41,6 +41,9 @@ const message = {
     expires: '认证信息已过期，请重新登录',
   },
   route: {
+    router_demo: "路由示例",
+    router_menu: "路由与菜单",
+    router_keep_alive: "组件缓存",
     system_setting: "系统设置",
     user_management: "用户管理",
     params_setting: "参数设置",

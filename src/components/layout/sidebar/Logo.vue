@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: 'SidebarLogo',
+  name: "SidebarLogo",
   props: {
     collapse: {
       type: Boolean,
@@ -36,9 +36,9 @@ export default {
   },
   data() {
     return {
-      title: 'FIT2CLOUD',
-      logo: require('@/assets/RackShift-white.png'),
-      collapseLogo: require('@/assets/RackShift-assist-white.png')
+      title: "FIT2CLOUD",
+      logo: require("@/assets/RackShift-white.png"),
+      collapseLogo: require("@/assets/RackShift-assist-white.png")
     }
   }
 }

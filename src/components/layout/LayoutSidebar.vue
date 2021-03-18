@@ -15,7 +15,7 @@ export default {
   components: {Sidebar},
   computed: {
     ...mapGetters([
-      'sidebar'
+      "sidebar"
     ]),
     isCollapse() {
       return !this.sidebar.opened

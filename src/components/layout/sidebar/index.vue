@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
-import SidebarItem from './SidebarItem'
+import {mapGetters} from "vuex"
+import SidebarItem from "./SidebarItem"
 import Logo from "@/components/layout/sidebar/Logo";
 
 export default {
@@ -27,8 +27,8 @@ export default {
   components: {Logo, SidebarItem},
   computed: {
     ...mapGetters([
-      'permission_routes',
-      'sidebar'
+      "permission_routes",
+      "sidebar"
     ]),
     activeMenu() {
       const route = this.$route

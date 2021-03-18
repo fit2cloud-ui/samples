@@ -8,6 +8,9 @@
       :search-config="searchConfig"
       :pagination-config="paginationConfig"
       @search="search">
+      <template #header>
+        <el-button @click="create"> create</el-button>
+      </template>
       <el-table-column type="selection" fix></el-table-column>
       <el-table-column label="ID" min-width="100" prop="id" fix/>
       <el-table-column label="姓名" min-width="100" prop="name" fix/>
@@ -55,7 +58,7 @@ export default {
           label: "删除", icon: "el-icon-delete", type: "danger", click: buttonClick
         }, {
           label: "删除(权限)", icon: "el-icon-delete", type: "danger", click: buttonClick,
-          show: checkPermission('editor') // 必须有editor权限才能看到
+          show: checkPermission('admin') // 必须有editor权限才能看到
         }, {
           label: "复制", icon: "el-icon-document-copy", click: buttonClick
         }, {
@@ -91,6 +94,9 @@ export default {
     }
   },
   methods: {
+    create(){
+      this.$router.push("/system-setting/params-setting")
+    },
     select(selection) {
       console.log(selection)
     },

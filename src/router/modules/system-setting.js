@@ -1,32 +1,34 @@
 import Layout from "@/business/app-layout/horizontal-layout";
 
 const SystemSetting = {
-  path: '/system-setting',
+  path: "/system-setting",
   component: Layout,
-  name: 'SystemSetting',
+  name: "SystemSetting",
   meta: {
     title: "route.system_setting",
-    icon: 'el-icon-setting',
-    roles: ['admin']
+    icon: "el-icon-setting",
+    roles: ["admin"]
   },
   children: [
     {
-      path: 'user-management',
-      component: () => import('@/business/system-setting/user-management/UserManagement'),
+      path: "user-management",
+      component: () => import("@/business/system-setting/user-management/UserManagement"),
       name: "UserManagement",
       meta: {
         title: "route.user_management",
-        roles: ['admin']
+        roles: ["admin"]
       }
     },
     {
-      path: 'params-setting',
-      component: () => import('@/business/system-setting/ParamsSetting'),
+      path: "params-setting",
+      component: () => import("@/business/system-setting/ParamsSetting"),
       name: "ParamsSetting",
       meta: {
         title: "route.params_setting",
-        roles: ['admin']
-      }
+        activeMenu: "/system-setting/user-management",
+        roles: ["admin"]
+      },
+      hidden: true,
     }
   ]
 }

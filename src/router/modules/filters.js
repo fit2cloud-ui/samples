@@ -1,12 +1,12 @@
 import Layout from "@/business/app-layout/horizontal-layout";
 
 const Filters = {
-  path: '/filters',
+  path: "/filters",
   component: Layout,
-  name: 'Filters',
+  name: "Filters",
   meta: {
     title: "过滤器",
-    icon: 'el-icon-circle-check',
+    icon: "el-icon-circle-check",
   }
 }
 export default Filters

@@ -9,12 +9,12 @@ export default {
   name: "SidebarToggleButton",
   methods: {
     toggle() {
-      this.$store.dispatch('app/toggleSideBar');
+      this.$store.dispatch("app/toggleSideBar");
     }
   },
   computed: {
     ...mapGetters([
-      'sidebar'
+      "sidebar"
     ]),
     icon() {
       return this.sidebar.opened ? "el-icon-s-fold" : "el-icon-s-unfold"
