@@ -3,11 +3,10 @@
                  :search-config="searchConfig"
                  :pagination-config="paginationConfig" @search="search">
     <template #header>
-      <back-button path=""></back-button>
       复合表格
     </template>
     <template #toolbar>
-      <el-button>创建</el-button>
+      <el-button @click="create">创建</el-button>
     </template>
     <el-table-column type="selection" fix></el-table-column>
     <el-table-column label="ID" min-width="100" prop="id" fix/>
@@ -34,7 +33,6 @@
 import {listUsers} from "@/api/user-management"
 import ComplexTable from "@/components/complex-table";
 import {checkPermission} from "@/utils/permisstion"
-import BackButton from "@/components/back-button";
 
 const buttonClick = function (row) {
   console.log(this.label + ": " + row.id)
@@ -42,7 +40,7 @@ const buttonClick = function (row) {
 
 export default {
   name: "ComplexTableDemo",
-  components: {BackButton, ComplexTable},
+  components: {ComplexTable},
   data() {
     return {
       columns: [],
@@ -90,6 +88,9 @@ export default {
     }
   },
   methods: {
+    create() {
+      this.$router.push({name: "FormDemo"})
+    },
     select(selection) {
       console.log(selection)
     },

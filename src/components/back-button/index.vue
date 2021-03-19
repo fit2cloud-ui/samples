@@ -1,5 +1,5 @@
 <template>
-  <el-icon name="back" class="back-button" @click="jump"/>
+  <el-icon name="back" class="back-button" @click.native="jump"/>
 </template>
 
 <script>
@@ -13,11 +13,12 @@ export default {
   methods: {
     jump() {
       const {path, name, to} = this
+      console.log(path, name, to)
       if (path) {
         this.$router.push(path)
       }
       if (name) {
-        this.$router.push(name)
+        this.$router.push({name: this.name})
       }
       if (to) {
         this.$router.push(to)

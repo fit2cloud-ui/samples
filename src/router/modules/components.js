@@ -22,9 +22,18 @@ const ComponentsSetting = {
     {
       path: "complex-table",
       component: () => import("@/business/components/ComplexTableDemo"),
-      name: "ComplexTable",
+      name: "ComplexTableDemo",
       meta: {
         title: "route.complex_table",
+      }
+    },
+    {
+      path: "form-demo",
+      component: () => import("@/business/components/FormDemo"),
+      name: "FormDemo",
+      hidden: true,
+      meta: {
+        activeMenu: "/components/complex-table"
       }
     },
   ]
