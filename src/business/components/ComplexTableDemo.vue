@@ -1,38 +1,39 @@
 <template>
-  <complex-table @select="select" header="复合表格" :data="data" :columns="columns"
-                 :search-config="searchConfig"
-                 :pagination-config="paginationConfig" @search="search">
-    <template #header>
-      复合表格
-    </template>
-    <template #toolbar>
-      <el-button @click="create">创建</el-button>
-    </template>
-    <el-table-column type="selection" fix></el-table-column>
-    <el-table-column label="ID" min-width="100" prop="id" fix/>
-    <el-table-column label="姓名" min-width="100" prop="name" fix/>
-    <el-table-column label="Email" min-width="100" prop="email"/>
-    <el-table-column label="角色" min-width="100" prop="roles"/>
-    <el-table-column label="语言" min-width="100">
-      <template v-slot:default="{row}">
-        <el-tag v-if="row.language === 'zh-CN'" type="danger" size="small">中文</el-tag>
-        <el-tag v-if="row.language === 'en-US'" size="small">English</el-tag>
+  <layout-content header="复合表格">
+    <complex-table @select="select" :data="data" :columns="columns"
+                   :search-config="searchConfig"
+                   :pagination-config="paginationConfig" @search="search">
+      <template #toolbar>
+        <el-button @click="create">创建</el-button>
+        <el-button @click="create">创建</el-button>
       </template>
-    </el-table-column>
-    <el-table-column label="创建时间" :show="false">
-      <template v-slot:default="{row}">
-        {{ row.createTime | datetimeFormat }}
-      </template>
-    </el-table-column>
+      <el-table-column type="selection" fix></el-table-column>
+      <el-table-column label="ID" min-width="100" prop="id" fix/>
+      <el-table-column label="姓名" min-width="100" prop="name" fix/>
+      <el-table-column label="Email" min-width="100" prop="email"/>
+      <el-table-column label="角色" min-width="100" prop="roles"/>
+      <el-table-column label="语言" min-width="100">
+        <template v-slot:default="{row}">
+          <el-tag v-if="row.language === 'zh-CN'" type="danger" size="small">中文</el-tag>
+          <el-tag v-if="row.language === 'en-US'" size="small">English</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="创建时间" :show="false">
+        <template v-slot:default="{row}">
+          {{ row.createTime | datetimeFormat }}
+        </template>
+      </el-table-column>
 
-    <fu-table-operations :buttons="buttons" label="操作" fix/>
-  </complex-table>
+      <fu-table-operations :buttons="buttons" label="操作" fix/>
+    </complex-table>
+  </layout-content>
 </template>
 
 <script>
 import {listUsers} from "@/api/user-management"
 import ComplexTable from "@/components/complex-table";
 import {checkPermission} from "@/utils/permisstion"
+import LayoutContent from "@/components/layout/LayoutContent";
 
 const buttonClick = function (row) {
   console.log(this.label + ": " + row.id)
@@ -40,7 +41,7 @@ const buttonClick = function (row) {
 
 export default {
   name: "ComplexTableDemo",
-  components: {ComplexTable},
+  components: {LayoutContent, ComplexTable},
   data() {
     return {
       columns: [],
