@@ -1,7 +1,9 @@
 <template>
   <div class="content-container">
-    <div class="content-container__header" v-if="$slots.header">
-      <slot name="header"></slot>
+    <div class="content-container__header" v-if="$slots.header || header">
+      <slot name="header">
+        {{ header }}
+      </slot>
     </div>
     <div class="content-container__toolbar" v-if="$slots.toolbar">
       <slot name="toolbar"></slot>
@@ -12,7 +14,10 @@
 
 <script>
 export default {
-  name: "LayoutContent"
+  name: "LayoutContent",
+  props: {
+    header: String
+  }
 }
 </script>
 
@@ -32,13 +37,13 @@ export default {
   box-sizing: border-box;
 
   .content-container__header {
-    @include flex-row(flex-start, center);
-    height: 60px;
-    font-size: 20px;
+    line-height: 60px;
+    font-size: 18px;
   }
 
   .content-container__toolbar {
-    @include flex-row(flex-start, center);
+    @include flex-row(space-between, center);
+    margin-bottom: 10px;
   }
 }
 </style>

@@ -1,51 +1,48 @@
 <template>
-  <layout-content>
-    <complex-table
-      @select="select"
-      :data="data"
-      :columns="columns"
-      :buttons="buttons"
-      :search-config="searchConfig"
-      :pagination-config="paginationConfig"
-      @search="search">
-      <template #header>
-        <el-button @click="create"> create</el-button>
+  <complex-table @select="select" header="复合表格" :data="data" :columns="columns"
+                 :search-config="searchConfig"
+                 :pagination-config="paginationConfig" @search="search">
+    <template #header>
+      <back-button path=""></back-button>
+      复合表格
+    </template>
+    <template #toolbar>
+      <el-button>创建</el-button>
+    </template>
+    <el-table-column type="selection" fix></el-table-column>
+    <el-table-column label="ID" min-width="100" prop="id" fix/>
+    <el-table-column label="姓名" min-width="100" prop="name" fix/>
+    <el-table-column label="Email" min-width="100" prop="email"/>
+    <el-table-column label="角色" min-width="100" prop="roles"/>
+    <el-table-column label="语言" min-width="100">
+      <template v-slot:default="{row}">
+        <el-tag v-if="row.language === 'zh-CN'" type="danger" size="small">中文</el-tag>
+        <el-tag v-if="row.language === 'en-US'" size="small">English</el-tag>
       </template>
-      <el-table-column type="selection" fix></el-table-column>
-      <el-table-column label="ID" min-width="100" prop="id" fix/>
-      <el-table-column label="姓名" min-width="100" prop="name" fix/>
-      <el-table-column label="Email" min-width="100" prop="email"/>
-      <el-table-column label="角色" min-width="100" prop="roles"/>
-      <el-table-column label="语言" min-width="100">
-        <template v-slot:default="{row}">
-          <el-tag v-if="row.language === 'zh-CN'" type="danger" size="small">中文</el-tag>
-          <el-tag v-if="row.language === 'en-US'" size="small">English</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column label="创建时间" :show="false">
-        <template v-slot:default="{row}">
-          {{ row.createTime | datetimeFormat }}
-        </template>
-      </el-table-column>
-      <fu-table-operations :buttons="buttons" label="操作" fix/>
-    </complex-table>
-  </layout-content>
+    </el-table-column>
+    <el-table-column label="创建时间" :show="false">
+      <template v-slot:default="{row}">
+        {{ row.createTime | datetimeFormat }}
+      </template>
+    </el-table-column>
+
+    <fu-table-operations :buttons="buttons" label="操作" fix/>
+  </complex-table>
 </template>
 
 <script>
-import LayoutContent from "@/components/layout/LayoutContent";
 import {listUsers} from "@/api/user-management"
 import ComplexTable from "@/components/complex-table";
-import CustomCondition from "./CustomCondtion";
 import {checkPermission} from "@/utils/permisstion"
+import BackButton from "@/components/back-button";
 
 const buttonClick = function (row) {
   console.log(this.label + ": " + row.id)
 }
 
 export default {
-  name: "UserManagement",
-  components: {ComplexTable, LayoutContent},
+  name: "ComplexTableDemo",
+  components: {BackButton, ComplexTable},
   data() {
     return {
       columns: [],
@@ -82,21 +79,17 @@ export default {
             multiple: true
           },
           {field: "create_time", label: "创建时间", component: "FuComplexDateTime"},
-          {field: "user", component: CustomCondition}, // 如何自定义搜索控件，看CustomCondition
         ]
       },
       paginationConfig: {
         currentPage: 1,
-        pageSize: 10,
+        pageSize: 5,
         total: 0,
       },
       data: [],
     }
   },
   methods: {
-    create(){
-      this.$router.push("/system-setting/params-setting")
-    },
     select(selection) {
       console.log(selection)
     },

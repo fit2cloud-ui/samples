@@ -44,10 +44,12 @@ const message = {
     router_demo: "路由示例",
     router_menu: "路由与菜单",
     router_keep_alive: "组件缓存",
+    components: "组件",
+    complex_table: "复合表格",
+    layout_content: "页面布局",
     system_setting: "系统设置",
     user_management: "用户管理",
     params_setting: "参数设置",
-    complex_table: "复合表格"
   },
 
 }

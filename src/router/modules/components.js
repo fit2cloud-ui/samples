@@ -11,17 +11,17 @@ const ComponentsSetting = {
     roles: ["admin"]
   },
   children: [
-    // {
-    //   path: "layout-content",
-    //   component: () => import("@/business/components/layout-content"),
-    //   name: "LayoutContent",
-    //   meta: {
-    //     title: "route.layout-content",
-    //   }
-    // },
+    {
+      path: "layout-content",
+      component: () => import("@/business/components/LayoutContentDemo"),
+      name: "LayoutContentDemo",
+      meta: {
+        title: "route.layout_content",
+      }
+    },
     {
       path: "complex-table",
-      component: () => import("@/business/components/complex-table"),
+      component: () => import("@/business/components/ComplexTableDemo"),
       name: "ComplexTable",
       meta: {
         title: "route.complex_table",
