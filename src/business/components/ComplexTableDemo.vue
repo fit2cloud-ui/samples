@@ -5,7 +5,7 @@
                    :pagination-config="paginationConfig" @search="search">
       <template #toolbar>
         <el-button @click="create">创建</el-button>
-        <el-button @click="create">创建</el-button>
+        <el-button>删除</el-button>
       </template>
       <el-table-column type="selection" fix></el-table-column>
       <el-table-column label="ID" min-width="100" prop="id" fix/>
@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     create() {
-      this.$router.push({name: "FormDemo"})
+      this.$router.push({name: "CreateFormDemo"})
     },
     select(selection) {
       console.log(selection)

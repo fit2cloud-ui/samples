@@ -8,6 +8,8 @@ $--box-shadow-light: 0 1px 4px 0 rgb(0 0 0 / 14%);
 
 $--color-text-primary: #3c4858;
 
+$--border-radius-base: 2px;
+
 /* fit2cloud-ui的variables加载了element-ui的变量 */
 @import "~fit2cloud-ui/src/styles/common/variables";
 

@@ -28,12 +28,29 @@ const ComponentsSetting = {
       }
     },
     {
-      path: "form-demo",
-      component: () => import("@/business/components/FormDemo"),
-      name: "FormDemo",
+      path: "form-create",
+      component: () => import("@/business/components/CreateFormDemo"),
+      name: "CreateFormDemo",
       hidden: true,
       meta: {
         activeMenu: "/components/complex-table"
+      }
+    },
+    {
+      path: "form-view",
+      component: () => import("@/business/components/ViewCardDemo"),
+      name: "ViewCardDemo",
+      meta: {
+        title: "表单示例",
+      }
+    },
+    {
+      path: "form-edit",
+      component: () => import("@/business/components/FormPartDemo"),
+      name: "FormPartDemo",
+      hidden: true,
+      meta: {
+        activeMenu: "/components/form-view"
       }
     },
   ]
