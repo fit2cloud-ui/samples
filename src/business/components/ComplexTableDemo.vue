@@ -32,7 +32,7 @@
 <script>
 import {listUsers} from "@/api/user-management"
 import ComplexTable from "@/components/complex-table";
-import {checkPermission} from "@/utils/permisstion"
+import {hasPermissions} from "@/utils/permisstion"
 import LayoutContent from "@/components/layout/LayoutContent";
 
 const buttonClick = function (row) {
@@ -54,7 +54,7 @@ export default {
           label: "删除", icon: "el-icon-delete", type: "danger", click: buttonClick
         }, {
           label: "删除(权限)", icon: "el-icon-delete", type: "danger", click: buttonClick,
-          show: checkPermission('admin') // 必须有editor权限才能看到
+          show: hasPermissions('admin') // 必须有admin权限才能看到
         }, {
           label: "复制", icon: "el-icon-document-copy", click: buttonClick
         }, {

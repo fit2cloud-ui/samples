@@ -1,29 +1,66 @@
 import store from '@/store'
 
-function checkPermission(el, binding) {
-  const {value} = binding
-  const roles = store.getters && store.getters.roles
+// 检查用户权限是否在定义权限范围内
+function checkPermissions(roles, and = false) {
+  let hasPermissions = false
 
-  if (value && value instanceof Array) {
-    if (value.length > 0) {
-      const permissionRoles = value
+  // 用户权限
+  const userRoles = store.getters && store.getters.roles
 
-      const hasPermission = roles.some(role => {
-        return permissionRoles.includes(role)
-      })
-
-      if (!hasPermission) {
-        el.parentNode && el.parentNode.removeChild(el)
+  if (roles && roles instanceof Array) {
+    if (roles.length > 0) {
+      if (and) { // and 所有权限都有
+        const hasRoles = userRoles.filter(role => {
+          return roles.includes(role)
+        })
+        if (hasRoles.length === roles.length) {
+          hasPermissions = true
+        }
+      } else { // or 有其中一个权限
+        hasPermissions = userRoles.some(role => {
+          return roles.includes(role)
+        })
       }
     }
+  }
+  return hasPermissions
+}
+
+function hasPermissions(el, binding) {
+  const {value, modifiers} = binding
+
+  const hasPermissions = checkPermissions(value, modifiers?.and)
+
+  if (!hasPermissions) {
+    el.parentNode && el.parentNode.removeChild(el)
+  }
+}
+
+function lackPermissions(el, binding) {
+  const {value, modifiers} = binding
+
+  const hasPermissions = checkPermissions(value, modifiers?.and)
+
+  if (hasPermissions) {
+    el.parentNode && el.parentNode.removeChild(el)
   }
 }
 
 export default {
-  inserted(el, binding) {
-    checkPermission(el, binding)
+  hasPermissions: {
+    inserted(el, binding) {
+      hasPermissions(el, binding)
+    },
+    update(el, binding) {
+      hasPermissions(el, binding)
+    }
   },
-  update(el, binding) {
-    checkPermission(el, binding)
+  lackPermissions: {
+    inserted(el, binding) {
+      lackPermissions(el, binding)
+    },
+    update(el, binding) {
+      lackPermissions(el, binding)
+    }
   }
 }

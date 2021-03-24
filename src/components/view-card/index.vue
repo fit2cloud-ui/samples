@@ -2,7 +2,7 @@
   <el-card :class="['view-card', 'view-card--' + type]" :shadow="shadow" v-bind="$attrs">
     <div slot="header" v-if="$slots.header || header">
       <slot name="header">
-        <i :class="icon"/>{{ header }}
+        <i :class="icon" v-if="icon"/>{{ header }}
       </slot>
     </div>
     <slot></slot>
@@ -19,8 +19,17 @@ export default {
     shadow: {
       type: String,
       default: "hover"
+    },
+    labelWidth: {
+      type: String,
+      default: "120px"
     }
-  }
+  },
+  provide() {
+    return {
+      itemLabelWidth: this.labelWidth
+    }
+  },
 }
 </script>
 

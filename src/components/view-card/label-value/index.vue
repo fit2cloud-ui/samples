@@ -1,6 +1,6 @@
 <template>
   <div :class="['label-value', 'label-value--' + computeSize]">
-    <label :style="{width: labelWidth}">{{ label }}</label>
+    <label :style="{width: width}" v-if="label">{{ label }}</label>
     <div>
       <slot></slot>
     </div>
@@ -16,15 +16,18 @@ export default {
   props: {
     label: String,
     value: String,
-    labelWidth: {
-      type: String,
-      default: "120px"
-    },
+    labelWidth: String,
     size: {
       type: String,
       validator: value => {
         ["medium", "small", "mini"].includes(value)
       }
+    }
+  },
+  inject: ["itemLabelWidth"],
+  computed: {
+    width({itemLabelWidth, labelWidth}) {
+      return labelWidth || itemLabelWidth
     }
   }
 }
@@ -52,6 +55,7 @@ export default {
     flex: 0 0 auto;
     text-align: left;
     font-weight: 700;
+    margin-right: 20px;
   }
 }
 </style>

@@ -8,14 +8,14 @@ const users = {
     id: "admin",
     name: 'Administrator',
     email: "admin@fit2cloud.com",
-    roles: ['admin'],
+    roles: ['admin', 'editor'],
     language: "zh-CN"
   },
   editor: {
     id: "editor",
     name: 'Editor',
     email: "editor@fit2cloud.com",
-    roles: ['editor'],
+    roles: ['editor', 'readonly'],
     language: "zh-CN"
   },
   readonly: {

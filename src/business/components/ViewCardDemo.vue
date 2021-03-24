@@ -44,8 +44,8 @@
 
 <script>
 import ViewCard from "@/components/view-card";
+import LabelValue from "@/components/view-card/label-value";
 import LayoutContent from "@/components/layout/LayoutContent";
-import LabelValue from "@/components/label-value";
 
 export default {
   name: "ViewCardDemo",
