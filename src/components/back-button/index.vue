@@ -13,7 +13,6 @@ export default {
   methods: {
     jump() {
       const {path, name, to} = this
-      console.log(path, name, to)
       if (path) {
         this.$router.push(path)
       }
