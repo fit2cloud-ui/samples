@@ -5,3 +5,5 @@ Samples 是一个前端项目模板，它基于 element-ui 和 fit2cloud-ui实�
 ### 在线示例
 
 https://fit2cloud-ui.github.io/samples
+
+用户：admin，editor，readonly。密码随便
