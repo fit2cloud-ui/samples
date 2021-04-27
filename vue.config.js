@@ -6,6 +6,7 @@ function resolve(dir) {
 
 module.exports = {
   productionSourceMap: true,
+  publicPath: "./",
   // 使用mock-server
   devServer: {
     port: 8080,

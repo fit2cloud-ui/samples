@@ -14,6 +14,12 @@ import "./permission"
 
 Vue.config.productionTip = false
 
+// 仅用于demo，项目中去掉这段代码
+if (process.env.NODE_ENV === 'demo') {
+  const {mockXHR} = require('../mock')
+  mockXHR()
+}
+
 Vue.use(ElementUI, {
   size: "small",
   i18n: (key, value) => i18n.t(key, value)
