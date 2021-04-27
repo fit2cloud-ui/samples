@@ -3967,7 +3967,7 @@ var getLanguage = function getLanguage() {
   var language = localStorage.getItem('language');
 
   if (!language) {
-    language = (navigator.language || navigator.browserLanguage).toLowerCase();
+    language = navigator.language || navigator.browserLanguage;
   }
 
   return language;
@@ -4297,7 +4297,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_4__["default"].config.productionTip = false;
+vue__WEBPACK_IMPORTED_MODULE_4__["default"].config.productionTip = false; // 仅用于demo，项目中去掉这段代码
 
 if (true) {
   var _require = __webpack_require__(/*! ../mock */ "./mock/index.js"),
