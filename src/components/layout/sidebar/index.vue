@@ -187,6 +187,9 @@ export default {
         &:hover {
           background-color: $submenu-bg-color-hover;
         }
+        &:focus {
+          background: none
+        }
 
         &.is-active {
           @include submenu-item-active;
