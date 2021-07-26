@@ -25,6 +25,7 @@ export default {
     return {
       languageMap: {
         "zh-CN": "中文(简体)",
+        "zh-TW": "中文(繁體)",
         "en-US": "English",
       }
     };

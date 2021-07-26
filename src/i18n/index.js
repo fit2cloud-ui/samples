@@ -4,7 +4,7 @@ import VueI18n from "vue-i18n";
 Vue.use(VueI18n);
 
 // 直接加载翻译的语言文件
-const LOADED_LANGUAGES = ['zh-CN', 'en-US'];
+const LOADED_LANGUAGES = ['zh-CN', 'zh-TW', 'en-US'];
 const LANG_FILES = require.context('./lang', true, /\.js$/)
 // 自动加载lang目录下语言文件，默认只加载LOADED_LANGUAGES中规定的语言文件，其他的语言动态加载
 const messages = LANG_FILES.keys().reduce((messages, path) => {
