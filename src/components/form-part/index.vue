@@ -1,11 +1,13 @@
 <template>
   <div class="form-part">
-    <h3 class="form-part__header" v-if="$slots.header || header">
+    <h3 class="form-part__header" v-if="$slots.header || header" @click="show = !show">
       <slot name="header">{{ header }}</slot>
     </h3>
-    <div class="form-part__body">
-      <slot></slot>
-    </div>
+    <el-collapse-transition>
+      <div class="form-part__body" v-show="show">
+        <slot></slot>
+      </div>
+    </el-collapse-transition>
   </div>
 </template>
 
@@ -14,6 +16,11 @@ export default {
   name: "FormPart",
   props: {
     header: String
+  },
+  data() {
+    return {
+      show: true
+    }
   }
 }
 </script>
@@ -36,6 +43,7 @@ export default {
     position: relative;
     line-height: 2;
     font-size: 16px;
+    cursor: pointer;
 
     &:before {
       content: "";
