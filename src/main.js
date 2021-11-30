@@ -1,7 +1,7 @@
 import Vue from "vue"
 import "@/styles/index.scss"
 import Fit2CloudUI from "fit2cloud-ui";
-import ElementUI from "element-ui";
+// import ElementUI from "element-ui";
 import App from "./App.vue"
 import i18n from "./i18n";
 import router from "./router"
@@ -19,11 +19,14 @@ if (process.env.NODE_ENV === 'demo') {
   const {mockXHR} = require('../mock')
   mockXHR()
 }
-
-Vue.use(ElementUI, {
-  size: "small",
-  i18n: (key, value) => i18n.t(key, value)
-});
+Vue.prototype.$ELEMENT = {
+    size: "small",
+    i18n: (key, value) => i18n.t(key, value)
+  }
+// Vue.use(ElementUI, {
+//   size: "small",
+//   i18n: (key, value) => i18n.t(key, value)
+// });
 Vue.use(Fit2CloudUI, {
   i18n: (key, value) => i18n.t(key, value)
 });

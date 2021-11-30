@@ -9,17 +9,15 @@
   <title>
     <%= htmlWebpackPlugin.options.title %>
   </title>
-  <% if (process.env.NODE_ENV==='production' ) { %>
-    <!-- 生产环境 -->
     <!-- 通过externals加载外部CDN资源 -->
     <!-- element-ui的css文件 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- 以下是js文件 -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.min.js"></script>
     <!-- element-ui的js文件 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <% } %>
 </head>
 
 <body>
