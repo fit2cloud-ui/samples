@@ -20,6 +20,7 @@ const cdn = {
      "https://unpkg.com/vue-router/dist/vue-router.min.js",
      "https://unpkg.com/vuex/dist/vuex.min.js",
      "https://unpkg.com/axios/dist/axios.min.js",
+     "js/test.js", // 非cdn的方式，放在public目录下
      "https://unpkg.com/element-ui/lib/index.js"
    ]
 }
