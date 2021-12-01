@@ -12,6 +12,7 @@ const externals = {
   "element-ui": "ELEMENT"
 }
 
+// 如果不用cdn,可以把js放到后端服务器或者nginx上,只要能访问到就可以了。
 const cdn = {
    css: ["https://unpkg.com/element-ui/lib/theme-chalk/index.css"],
    js: [
