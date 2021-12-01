@@ -4,6 +4,25 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
+const externals = {
+  vue: 'Vue',
+  'vue-router': 'VueRouter',
+  vuex: 'Vuex',
+  axios: 'axios',
+  "element-ui": "ELEMENT"
+}
+
+const cdn = {
+   css: ["https://unpkg.com/element-ui/lib/theme-chalk/index.css"],
+   js: [
+     "https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js",
+     "https://unpkg.com/vue-router/dist/vue-router.min.js",
+     "https://unpkg.com/vuex/dist/vuex.min.js",
+     "https://unpkg.com/axios/dist/axios.min.js",
+     "https://unpkg.com/element-ui/lib/index.js"
+   ]
+}
+
 module.exports = {
   productionSourceMap: true,
   publicPath: "./",
@@ -24,10 +43,13 @@ module.exports = {
         '@': resolve('src')
       }
     },
-    externals: {
-			'vue': 'Vue',
-			'vue-router': 'VueRouter',
-			"element-ui": "ELEMENT"
-		}
+    externals: externals
   },
+  chainWebpack: config => {
+    config.plugin("html").tap(args => {
+      // html中添加cdn
+      args[0].cdn = cdn;
+      return args;
+    });
+  }
 };

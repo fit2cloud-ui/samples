@@ -9,15 +9,13 @@
   <title>
     <%= htmlWebpackPlugin.options.title %>
   </title>
-    <!-- 通过externals加载外部CDN资源 -->
-    <!-- element-ui的css文件 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <!-- 以下是js文件 -->
-
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-    <script src="https://unpkg.com/vue-router/dist/vue-router.min.js"></script>
-    <!-- element-ui的js文件 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <!-- 通过externals加载外部CDN资源 -->
+  <% htmlWebpackPlugin.options.cdn.css.forEach(function(item){ if(item){ %>
+    <link href="<%= item %>" rel="stylesheet" />
+    <% }}) %>
+   <% htmlWebpackPlugin.options.cdn.js.forEach(function(item){ if(item){ %>
+      <script type="text/javascript" src="<%= item %>"></script>
+        <% }}) %>
 </head>
 
 <body>
