@@ -76,10 +76,11 @@ export default {
         components: [
           {field: "name", label: "姓名", component: "FuComplexInput", defaultOperator: "eq"},
           {field: "email", label: "Email", component: "FuComplexInput"},
+          {field: "age", label: "年龄", component: "FuComplexInputNumber"},
           {
             field: "status",
-            label: "状态",
-            component: "FuComplexSelect",
+            label: "状态(可多选)",
+            component: "FuComplexMixSelect",
             options: [
               {label: "运行中", value: "Running"},
               {label: "成功", value: "Success"},
