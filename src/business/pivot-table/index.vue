@@ -2,7 +2,7 @@
   <layout-content>
     <div class="pivot-table">
       <div class="fields-panel-grid">
-        <fields-box :data="leftHeaderList" @drop="drop" />
+        <fields-box :data="pivotTableData" @drop="drop" />
       </div>
       <div class="canvas-panel-grid">
         <div class="tree">
@@ -20,33 +20,33 @@
             </el-collapse-transition>
           </div>
         </div>
-        <!--
-        <div class="table">
 
-          <div class="table-header-border table-right-border"
+        <div class="table">
+          <!-- <div class="table-header-border table-right-border"
             :style="`top: 0px; left: ${leftHeaderList.columns.size.width}px; height: 1290px;`">
           </div>
           <div class="table-header-border table-bottom-border"
             :style="`left: 0px; top: ${leftHeaderList.columns.size.height}px; width: 2055px;`">
-          </div>
-          <div class="table-tr" :style="`height:${leftHeaderList.columns.size.height}px;`">
+          </div> -->
+          <div class="table-tr">
             <div class="table-column"
-              :style="`width:${leftHeaderList.columns.size.width}px; z-index: 3;`">
-              <left-top :columns="leftHeaderList.columns.data" :rows="leftHeaderList.rows.data"
-                :style="`height:${leftHeaderList.columns.size.height}px; width:${leftHeaderList.columns.size.width}px; left: 0px; top: 0px;`" />
+              :style="`width: ${totalWidth(rowsData)}px; z-index: 3;height:${totalHeight(pivotTableData.columns, perHeight)}px;`">
+              <left-top :columns="pivotTableData.columns" :rows="rowsData" :perHeight="perHeight"
+                :style="`height: ${totalHeight(pivotTableData.columns, perHeight)}px; width: ${totalWidth(rowsData)}px; left: 0px; top: 0px;`" />
             </div>
+            <!-- :style="`height:${rightHeaderList.size.height}px; width:${rightHeaderList.size.width}px;`"  -->
             <div class="table-column">
-              <right-column :dataList="rightHeaderList.data"
-                :style="`height:${rightHeaderList.size.height}px; width:${rightHeaderList.size.width}px;`" />
+              <!-- <right-column :dataList="rowsData"
+                /> -->
             </div>
           </div>
           <div class="table-tr">
-            <div class="table-column" :style="`height:${leftHeaderList.rows.size.height}px;`">
-              <left-column :dataList="leftHeaderList.rows.value"
+            <!-- <div class="table-column" :style="`height:${leftHeaderList.rows.size.height}px;`">
+              <left-row :dataList="leftHeaderList.rows.value"
                 :style="`width:${leftHeaderList.rows.size.width}px;`" />
-            </div>
-            <div class="table-column">
-              <div class="value-cell  align-right"
+            </div> -->
+            <!-- <div class="table-column"> -->
+            <!-- <div class="value-cell  align-right"
                 style="left: 0px; top: 0px; width: 27px; height: 32px; line-height: 32px;"></div>
               <div class="value-cell  align-right"
                 style="left: 27px; top: 0px; width: 27px; height: 32px; line-height: 32px;"></div>
@@ -63,11 +63,12 @@
               <div class="value-cell  align-right total-cell"
                 style="left: 27px; top: 64px; width: 27px; height: 32px; line-height: 32px;"></div>
               <div class="value-cell  align-right total-cell"
-                style="left: 54px; top: 64px; width: 93px; height: 32px; line-height: 32px;"></div>
-            </div>
+                style="left: 54px; top: 64px; width: 93px; height: 32px; line-height: 32px;"></div> -->
+            <!-- </div>
+          </div> -->
           </div>
+
         </div>
-      -->
       </div>
     </div>
   </layout-content>
@@ -75,328 +76,29 @@
 </template>
 
 <script>
+import { getMaxWidth, getSum, getTextWidth } from "./utils";
+import { pivotTableData, listTree } from "./data";
 import FieldsBox from "./component/FieldsBox.vue";
 // import RightColumn from "./component/RightColumn.vue";
-// import LeftColumn from "./component/LeftColumn.vue";
-// import LeftTop from "./component/LeftTop.vue";
+// import LeftRow from "./component/LeftRow.vue";
+import LeftTop from "./component/LeftTop.vue";
 import LayoutContent from "@/components/layout/LayoutContent";
 export default {
   name: "PivotTable",
   components: {
     LayoutContent,
-    // LeftTop,
-    // LeftColumn,
+    LeftTop,
+    // LeftRow,
     // RightColumn,
     FieldsBox,
   },
   data() {
     return {
       // 左侧
-      listTree: [
-        {
-          name: "Accessories",
-          length: 11,
-          children: [
-            {
-              name: "Accessories - 总计",
-              length: 13,
-              total: true,
-            },
-            {
-              name: "red",
-              length: 3,
-            },
-            {
-              name: "yellow",
-              length: 6,
-            },
-            {
-              name: "white",
-              length: 5,
-            },
-            {
-              name: "green",
-              length: 5,
-            },
-          ],
-        },
-        {
-          name: "Bikes",
-          length: 5,
-          children: [
-            {
-              name: "Bikes - 总计",
-              length: 12,
-              total: true,
-            },
-            {
-              name: "white",
-              length: 5,
-            },
-            {
-              name: "red",
-              length: 3,
-            },
-            {
-              name: "green",
-              length: 5,
-            },
-            {
-              name: "yellow",
-              length: 6,
-            },
-            {
-              name: "blue",
-              length: 4,
-            },
-            {
-              name: "purple",
-              length: 6,
-            },
-          ],
-        },
-        {
-          name: "Clothing",
-          length: 8,
-          children: [
-            {
-              name: "Clothing - 总计",
-              length: 15,
-              total: true,
-            },
-            {
-              name: "yellow",
-              length: 6,
-            },
-            {
-              name: "blue",
-              length: 4,
-            },
-            {
-              name: "white",
-              length: 5,
-            },
-            {
-              name: "purple",
-              length: 6,
-            },
-            {
-              name: "red",
-              length: 3,
-            },
-            {
-              name: "green",
-              length: 5,
-            },
-          ],
-        },
-        {
-          name: "Components",
-          length: 10,
-          children: [
-            {
-              name: "Components - 总计",
-              length: 18,
-              total: true,
-            },
-            {
-              name: "red",
-              length: 3,
-            },
-            {
-              name: "green",
-              length: 5,
-            },
-            {
-              name: "blue",
-              length: 4,
-            },
-            {
-              name: "white",
-              length: 5,
-            },
-          ],
-        },
-        {
-          name: "Cars",
-          length: 4,
-          children: [
-            {
-              name: "Cars - 总计",
-              length: 12,
-              total: true,
-            },
-            {
-              name: "green",
-              length: 5,
-            },
-            {
-              name: "white",
-              length: 5,
-            },
-            {
-              name: "red",
-              length: 3,
-            },
-            {
-              name: "blue",
-              length: 4,
-            },
-          ],
-        },
-      ],
+      listTree: listTree,
       // 表格
-      leftHeaderList: {
-        rows: [
-          { name: "Accessories", length: 11 },
-          { name: "Cars", length: 4 },
-        ],
-        columns: [
-          {
-            name: "Components",
-            length: 10,
-            children: [
-              {
-                name: "Components - 总计",
-                length: 18,
-                total: true,
-              },
-              {
-                name: "red",
-                length: 3,
-              },
-              {
-                name: "green",
-                length: 5,
-              },
-              {
-                name: "blue",
-                length: 4,
-              },
-              {
-                name: "white",
-                length: 5,
-              },
-            ],
-          },
-          {
-            name: "Bikes",
-            length: 5,
-            children: [
-              {
-                name: "Bikes - 总计",
-                length: 12,
-                total: true,
-              },
-              {
-                name: "white",
-                length: 5,
-              },
-              {
-                name: "red",
-                length: 3,
-              },
-              {
-                name: "green",
-                length: 5,
-              },
-              {
-                name: "yellow",
-                length: 6,
-              },
-              {
-                name: "blue",
-                length: 4,
-              },
-              {
-                name: "purple",
-                length: 6,
-              },
-            ],
-          },
-        ],
-      },
-      rightHeaderList: {
-        data: [
-          {
-            pValue: "Business_Type",
-            value: "Specialty Bike Shop",
-            width: 564,
-            height: 28,
-            left: 0,
-            top: 0,
-          },
-          {
-            pValue: "Destination",
-            value: "Business_Type - 总计",
-            width: 147,
-            height: 84,
-            left: 564,
-            top: 0,
-            type: "total",
-          },
-          {
-            pValue: "Destination",
-            value: "Australia",
-            width: 65,
-            height: 56,
-            left: 0,
-            top: 28,
-          },
-          {
-            pValue: "Destination",
-            value: "Canada",
-            width: 58,
-            height: 56,
-            left: 65,
-            top: 28,
-          },
-          {
-            pValue: "Destination",
-            value: "France",
-            width: 52,
-            height: 56,
-            left: 123,
-            top: 28,
-          },
-          {
-            pValue: "Destination",
-            value: "Germany",
-            width: 65,
-            height: 56,
-            left: 175,
-            top: 28,
-          },
-          {
-            pValue: "Destination",
-            value: "United Kingdom",
-            width: 107,
-            height: 56,
-            left: 240,
-            top: 28,
-          },
-          {
-            pValue: "Destination",
-            value: "United States",
-            width: 90,
-            height: 56,
-            left: 347,
-            top: 28,
-          },
-          {
-            pValue: "Destination",
-            value: "Destination - 总计",
-            width: 127,
-            height: 56,
-            left: 437,
-            top: 28,
-            type: "total",
-          },
-        ],
-        size: { width: 711, height: 85 },
-      },
-      valueList: [],
-      unitHeight: 28,
+      pivotTableData: pivotTableData,
+      perHeight: 28,
       // 拖拽
       isMouseItem: "",
 
@@ -405,15 +107,39 @@ export default {
     };
   },
   mounted() {},
+  computed: {
+    rowsData() {
+      const rows = pivotTableData.rows;
+      rows.forEach((item) => {
+        item.MaxWidth = getMaxWidth(this.getNumArray(item.children, "length"));
+      });
+      return rows;
+    },
+  },
   methods: {
     drop({ type, index, item }) {
       console.log(type, index, item);
     },
     dragend() {
-      this.isMouseItem = ""
+      this.isMouseItem = "";
     },
     drag(item) {
-      this.isMouseItem = item
+      this.isMouseItem = item;
+    },
+    totalHeight(list, add) {
+      const sum = list.length * this.perHeight + (add || 0);
+      return sum;
+    },
+    totalWidth(list) {
+      const sum = getSum(this.getNumArray(list, "MaxWidth"));
+      return getTextWidth(sum);
+    },
+    getNumArray(list, name) {
+      let arr = [];
+      list.forEach((item) => {
+        arr.push(item[name]);
+      });
+      return arr;
     },
     // tree操作
     treeClick(index) {
@@ -437,11 +163,10 @@ export default {
   .fields-panel-grid {
     margin-bottom: 15px;
   }
-  .canvas-panel-grid {
-    display: flex;
-  }
+
   .tree {
     width: 150px;
+    display: inline-block;
     .tree-node {
       line-height: 25px;
     }
@@ -461,6 +186,8 @@ export default {
     flex-direction: column;
     box-sizing: content-box;
     border: 1px solid #d4d6d9;
+    display: inline-block;
+    vertical-align: top;
     .table-tr {
       display: flex;
     }

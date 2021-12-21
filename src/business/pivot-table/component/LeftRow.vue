@@ -13,7 +13,7 @@
 <script>
 import DragLine from "./DragLine.vue";
 export default {
-  name: "LeftColumn",
+  name: "LeftRow",
   props: {
     dataList: Array,
   },

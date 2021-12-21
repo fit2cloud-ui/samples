@@ -1,18 +1,19 @@
 <template>
   <div class="left-top-container">
     <div class="table-header-col align-left" :class="index===0&&'no-top-border'"
-      v-for="(item, index) in columns" :key="index" :style="`height: ${item.height}px`">
-      <span>{{item.value}}</span>
-      <slide-handle style="width:7px" :style="getSlideStyle(item)" @drop.stop="drop($event)"
+      v-for="(item, index) in columns" :key="index" :style="`height: ${perHeight}px`">
+      <span>{{item.name}}</span>
+      <slide-handle :style="getSlideStyle()" @drop.stop="drop($event)"
         @dragover.stop="dragover($event)" @dragleave.stop="dragleave($event)" />
     </div>
     <div class="table-header-row-wrap">
       <div class="table-header-row align-left" :class="index===0&&'no-left-border'"
         v-for="(item, index) in rows" :key="index"
-        :style="`height: ${item.height}px;width:${item.width}px`">
-        <span>{{item.value}}</span>
+        :style="`height: ${perHeight}px; width: ${getRow(item.MaxWidth)}px`">
 
-        <slide-handle style="width:4px" :style="getSlideStyle(item)" @drop.stop="drop($event)"
+        {{item.width}}
+        <span>{{item.name}}</span>
+        <slide-handle :style="getSlideStyle()" @drop.stop="drop($event)"
           @dragover.stop="dragover($event)" @dragleave.stop="dragleave($event)" />
 
       </div>
@@ -21,22 +22,35 @@
 </template>
 
 <script>
+import { getTextWidth } from "./../utils";
 import SlideHandle from "./SlideHandle.vue";
 export default {
   name: "LeftTop",
   props: {
     columns: Array,
     rows: Array,
+    perHeight: {
+      type: Number,
+      default: 28,
+    },
   },
   components: {
     SlideHandle,
   },
-  data() {},
+  data() {
+    return {};
+  },
+  created() {},
+  mounted() {},
 
   methods: {
-    getSlideStyle(item) {
-      return `height: ${item.height}px; top: 0; right: -4px;`;
+    getRow(width){
+      return getTextWidth(width)
     },
+    getSlideStyle() {
+      return `width:4px;height: ${this.perHeight}px; top: 0; right: 0px;`;
+    },
+
     drop(val) {
       this.$emit("drop", val);
     },
