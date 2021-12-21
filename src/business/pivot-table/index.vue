@@ -1,24 +1,28 @@
 <template>
   <layout-content>
     <div class="pivot-table">
-      <div class="tree">
-        <div class="tree-wrapper">
+      <div class="fields-panel-grid">
+        <fields-box :data="leftHeaderList" @drop="drop" />
+      </div>
+      <div class="canvas-panel-grid">
+        <div class="tree">
           <div class="tree-node" v-for="(item,index) in listTree" :key="index">
-            <div><i class="tree-icon el-icon-caret-right" :class="isShow(index)?'icon-show':''" @click="treeClick(index)"></i><span
-                draggable="true" @dragstart="drag($event)">{{item.value}}</span></div>
+            <div><i class="tree-icon el-icon-caret-right" :class="isShow(index)?'icon-show':''"
+                @click="treeClick(index)"></i><span draggable="true" @dragstart="drag(item)"
+                @dragend.prevent="dragend">{{item.name}}</span></div>
             <el-collapse-transition>
 
               <div class="tree-child-node" v-show="isShow(index)"
                 v-if="item.children&&item.children.length>0">
                 <div v-for="(child,i) in item.children" :key="i" draggable="true"
-                  @dragstart="drag($event)">{{child}}</div>
+                  @dragstart="drag(child)" @dragend.prevent="dragend">{{child.name}}</div>
               </div>
             </el-collapse-transition>
           </div>
         </div>
-      </div>
-      <div class="table">
-        <div class="table-wrapper">
+        <!--
+        <div class="table">
+
           <div class="table-header-border table-right-border"
             :style="`top: 0px; left: ${leftHeaderList.columns.size.width}px; height: 1290px;`">
           </div>
@@ -42,7 +46,7 @@
                 :style="`width:${leftHeaderList.rows.size.width}px;`" />
             </div>
             <div class="table-column">
-              <!-- <div class="value-cell  align-right"
+              <div class="value-cell  align-right"
                 style="left: 0px; top: 0px; width: 27px; height: 32px; line-height: 32px;"></div>
               <div class="value-cell  align-right"
                 style="left: 27px; top: 0px; width: 27px; height: 32px; line-height: 32px;"></div>
@@ -59,10 +63,11 @@
               <div class="value-cell  align-right total-cell"
                 style="left: 27px; top: 64px; width: 27px; height: 32px; line-height: 32px;"></div>
               <div class="value-cell  align-right total-cell"
-                style="left: 54px; top: 64px; width: 93px; height: 32px; line-height: 32px;"></div> -->
+                style="left: 54px; top: 64px; width: 93px; height: 32px; line-height: 32px;"></div>
             </div>
           </div>
         </div>
+      -->
       </div>
     </div>
   </layout-content>
@@ -70,139 +75,246 @@
 </template>
 
 <script>
-import RightColumn from "./component/RightColumn.vue";
-import LeftColumn from "./component/LeftColumn.vue";
-import LeftTop from "./component/LeftTop.vue";
+import FieldsBox from "./component/FieldsBox.vue";
+// import RightColumn from "./component/RightColumn.vue";
+// import LeftColumn from "./component/LeftColumn.vue";
+// import LeftTop from "./component/LeftTop.vue";
 import LayoutContent from "@/components/layout/LayoutContent";
 export default {
   name: "PivotTable",
   components: {
     LayoutContent,
-    LeftTop,
-    LeftColumn,
-    RightColumn,
+    // LeftTop,
+    // LeftColumn,
+    // RightColumn,
+    FieldsBox,
   },
   data() {
     return {
       // 左侧
       listTree: [
         {
-          value: "Business_Type",
+          name: "Accessories",
+          length: 11,
           children: [
-            "Specialty Bike Shop",
-            "Value Added Reseller",
-            "Warehouse",
+            {
+              name: "Accessories - 总计",
+              length: 13,
+              total: true,
+            },
+            {
+              name: "red",
+              length: 3,
+            },
+            {
+              name: "yellow",
+              length: 6,
+            },
+            {
+              name: "white",
+              length: 5,
+            },
+            {
+              name: "green",
+              length: 5,
+            },
           ],
         },
         {
-          value: "Size",
-          children: ["1 oz", "2 oz", "3 oz"],
+          name: "Bikes",
+          length: 5,
+          children: [
+            {
+              name: "Bikes - 总计",
+              length: 12,
+              total: true,
+            },
+            {
+              name: "white",
+              length: 5,
+            },
+            {
+              name: "red",
+              length: 3,
+            },
+            {
+              name: "green",
+              length: 5,
+            },
+            {
+              name: "yellow",
+              length: 6,
+            },
+            {
+              name: "blue",
+              length: 4,
+            },
+            {
+              name: "purple",
+              length: 6,
+            },
+          ],
         },
         {
-          value: "Color",
-          children: ["Red", "Blue", "Orange"],
+          name: "Clothing",
+          length: 8,
+          children: [
+            {
+              name: "Clothing - 总计",
+              length: 15,
+              total: true,
+            },
+            {
+              name: "yellow",
+              length: 6,
+            },
+            {
+              name: "blue",
+              length: 4,
+            },
+            {
+              name: "white",
+              length: 5,
+            },
+            {
+              name: "purple",
+              length: 6,
+            },
+            {
+              name: "red",
+              length: 3,
+            },
+            {
+              name: "green",
+              length: 5,
+            },
+          ],
         },
         {
-          value: "Destination",
-          children: ["Australia", "Canada", "France"],
+          name: "Components",
+          length: 10,
+          children: [
+            {
+              name: "Components - 总计",
+              length: 18,
+              total: true,
+            },
+            {
+              name: "red",
+              length: 3,
+            },
+            {
+              name: "green",
+              length: 5,
+            },
+            {
+              name: "blue",
+              length: 4,
+            },
+            {
+              name: "white",
+              length: 5,
+            },
+          ],
         },
         {
-          value: "country",
-          children: ["Australia", "Canada", "France"],
+          name: "Cars",
+          length: 4,
+          children: [
+            {
+              name: "Cars - 总计",
+              length: 12,
+              total: true,
+            },
+            {
+              name: "green",
+              length: 5,
+            },
+            {
+              name: "white",
+              length: 5,
+            },
+            {
+              name: "red",
+              length: 3,
+            },
+            {
+              name: "blue",
+              length: 4,
+            },
+          ],
         },
       ],
       // 表格
       leftHeaderList: {
-        columns: {
-          data: [
-            { value: "Business_Type", height: 28 },
-            { value: "Destination", height: 28 },
-          ],
-          size: { width: 158, height: 84 },
-        },
-        rows: {
-          data: [
-            { value: "Color", width: 51, height: 28 },
-            { value: "Country", width: 107, height: 28 },
-          ],
-          size: { width: 159, height: 224 },
-          value: [
-            {
-              pValue: "Color",
-              value: "blue",
-              width: 51,
-              height: 196,
-              left: 0,
-              top: 0,
-            },
-            {
-              value: "Color - 总计",
-              width: 158,
-              height: 28,
-              left: 0,
-              top: 196,
-              type: "total",
-            },
-            {
-              pValue: "country",
-              value: "Australia",
-              width: 107,
-              height: 28,
-              left: 51,
-              top: 0,
-            },
-            {
-              pValue: "country",
-              value: "Canada",
-              width: 107,
-              height: 28,
-              left: 51,
-              top: 28,
-            },
-            {
-              pValue: "country",
-              value: "France",
-              width: 107,
-              height: 28,
-              left: 51,
-              top: 56,
-            },
-            {
-              pValue: "country",
-              value: "Germany",
-              width: 107,
-              height: 28,
-              left: 51,
-              top: 84,
-            },
-            {
-              pValue: "country",
-              value: "United Kingdom",
-              width: 107,
-              height: 28,
-              left: 51,
-              top: 112,
-            },
-            {
-              pValue: "country",
-              value: "United States",
-              width: 107,
-              height: 28,
-              left: 51,
-              top: 140,
-            },
-            {
-              value: "Country - 总计",
-              width: 107,
-              height: 28,
-              left: 51,
-              top: 168,
-              type: "total",
-            },
-          ],
-        },
-        metric: [],
-        group: [],
+        rows: [
+          { name: "Accessories", length: 11 },
+          { name: "Cars", length: 4 },
+        ],
+        columns: [
+          {
+            name: "Components",
+            length: 10,
+            children: [
+              {
+                name: "Components - 总计",
+                length: 18,
+                total: true,
+              },
+              {
+                name: "red",
+                length: 3,
+              },
+              {
+                name: "green",
+                length: 5,
+              },
+              {
+                name: "blue",
+                length: 4,
+              },
+              {
+                name: "white",
+                length: 5,
+              },
+            ],
+          },
+          {
+            name: "Bikes",
+            length: 5,
+            children: [
+              {
+                name: "Bikes - 总计",
+                length: 12,
+                total: true,
+              },
+              {
+                name: "white",
+                length: 5,
+              },
+              {
+                name: "red",
+                length: 3,
+              },
+              {
+                name: "green",
+                length: 5,
+              },
+              {
+                name: "yellow",
+                length: 6,
+              },
+              {
+                name: "blue",
+                length: 4,
+              },
+              {
+                name: "purple",
+                length: 6,
+              },
+            ],
+          },
+        ],
       },
       rightHeaderList: {
         data: [
@@ -285,15 +397,23 @@ export default {
       },
       valueList: [],
       unitHeight: 28,
-      isMouse: false,
+      // 拖拽
+      isMouseItem: "",
+
       // 左侧tree操作
       showList: [],
     };
   },
   mounted() {},
   methods: {
-    drag(val) {
-      console.log(val);
+    drop({ type, index, item }) {
+      console.log(type, index, item);
+    },
+    dragend() {
+      this.isMouseItem = ""
+    },
+    drag(item) {
+      this.isMouseItem = item
     },
     // tree操作
     treeClick(index) {
@@ -312,10 +432,15 @@ export default {
 
 <style scoped lang="scss">
 .pivot-table {
-  display: flex;
-  flex-direction: row;
+  min-width: 1100px;
   font-size: 12px;
-  .tree-wrapper {
+  .fields-panel-grid {
+    margin-bottom: 15px;
+  }
+  .canvas-panel-grid {
+    display: flex;
+  }
+  .tree {
     width: 150px;
     .tree-node {
       line-height: 25px;
@@ -332,15 +457,10 @@ export default {
   }
   .table {
     position: relative;
-    // width: 100%;
-    // height: 100%;
-    .table-wrapper {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      box-sizing: content-box;
-      border: 1px solid #d4d6d9;
-    }
+    display: flex;
+    flex-direction: column;
+    box-sizing: content-box;
+    border: 1px solid #d4d6d9;
     .table-tr {
       display: flex;
     }
