@@ -3,37 +3,30 @@
     <div class="axis-cell align-left"
       :class="{'total':(item.type==='total'),'no-top-border':item.top===0}"
       v-for="(item, index) in dataList" :key="index" :style="getCellStyle(item)">
-      <span>{{item.value}}</span>
-      <slide-handle :style="getSlideStyle(item)" @drop.stop="drop($event)"
-        @dragover.stop="dragover($event)" @dragleave.stop="dragleave($event)" />
+      <span>{{item.name}}</span>
+      <!-- <slide-handle :style="getSlideStyle(item)" @drop.stop="drop($event)"
+        @dragover.stop="dragover($event)" @dragleave.stop="dragleave($event)" /> -->
     </div>
 
-    <drag-line v-for="(item, index) in line" :key="index" :style="getLineStyle(item)" />
+    <!-- <drag-line v-for="(item, index) in line" :key="index" :style="getLineStyle(item)" /> -->
 
   </div>
 </template>
 
 <script>
-import DragLine from "./DragLine.vue";
-import SlideHandle from "./SlideHandle.vue";
+// import DragLine from "./DragLine.vue";
+// import SlideHandle from "./SlideHandle.vue";
 export default {
   name: "RightColumn",
   props: {
     dataList: Array,
   },
   components: {
-    SlideHandle,
-    DragLine,
+    // SlideHandle,
+    // DragLine,
   },
   data() {
-    return {
-      line: [
-        { width: 4, height: 84, top: 0, left: 0 },
-        { width: 710, height: 4, top: 0, left: 0 },
-        { width: 710, height: 4, top: 84, left: 0 },
-        { width: 710, height: 4, top: 28, left: 0 },
-      ],
-    };
+    return {};
   },
   methods: {
     getCellStyle(item) {

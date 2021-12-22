@@ -29,24 +29,28 @@
             :style="`left: 0px; top: ${leftHeaderList.columns.size.height}px; width: 2055px;`">
           </div> -->
           <div class="table-tr">
+            <!-- 上左header -->
             <div class="table-column"
-              :style="`width: ${totalWidth(rowsData)}px; z-index: 3;height:${totalHeight(pivotTableData.columns, perHeight)}px;`">
+              :style="`width: ${totalWidth(rowsData, 'MaxWidth')}px; z-index: 3;height:${totalHeight(pivotTableData.columns, perHeight)}px;`">
               <left-top :columns="pivotTableData.columns" :rows="rowsData" :perHeight="perHeight"
-                :style="`height: ${totalHeight(pivotTableData.columns, perHeight)}px; width: ${totalWidth(rowsData)}px; left: 0px; top: 0px;`" />
+                :style="`height: ${totalHeight(pivotTableData.columns, perHeight)}px; width: ${totalWidth(rowsData, 'MaxWidth')}px; left: 0px; top: 0px;`" />
             </div>
-            <!-- :style="`height:${rightHeaderList.size.height}px; width:${rightHeaderList.size.width}px;`"  -->
+            <!-- 横向header -->
             <div class="table-column">
-              <!-- <right-column :dataList="rowsData"
-                /> -->
+              <right-column :dataList="rightColumnsData"
+                :style="`height: ${totalHeight(pivotTableData.columns, perHeight)}px; width: ${totalWidth(rightHeaderColumn, 'width')}px;`" />
             </div>
           </div>
           <div class="table-tr">
-            <!-- <div class="table-column" :style="`height:${leftHeaderList.rows.size.height}px;`">
-              <left-row :dataList="leftHeaderList.rows.value"
-                :style="`width:${leftHeaderList.rows.size.width}px;`" />
-            </div> -->
-            <!-- <div class="table-column"> -->
-            <!-- <div class="value-cell  align-right"
+             <!-- 纵向header -->
+            <div class="table-column"
+              :style="`height:${leftHeaderRow[leftHeaderRow.length-1].top+perHeight}px;`">
+              <left-row :dataList="leftRowsData"
+                :style="`width: ${totalWidth(rowsData, 'MaxWidth')}px;`" />
+            </div>
+              <!-- 中间value -->
+            <div class="table-column">
+              <!-- <div class="value-cell  align-right"
                 style="left: 0px; top: 0px; width: 27px; height: 32px; line-height: 32px;"></div>
               <div class="value-cell  align-right"
                 style="left: 27px; top: 0px; width: 27px; height: 32px; line-height: 32px;"></div>
@@ -63,9 +67,9 @@
               <div class="value-cell  align-right total-cell"
                 style="left: 27px; top: 64px; width: 27px; height: 32px; line-height: 32px;"></div>
               <div class="value-cell  align-right total-cell"
-                style="left: 54px; top: 64px; width: 93px; height: 32px; line-height: 32px;"></div> -->
-            <!-- </div>
-          </div> -->
+                style="left: 54px; top: 64px; width: 93px; height: 32px; line-height: 32px;"></div>
+            </div> -->
+            </div>
           </div>
 
         </div>
@@ -76,11 +80,22 @@
 </template>
 
 <script>
-import { getMaxWidth, getSum, getTextWidth } from "./utils";
-import { pivotTableData, listTree } from "./data";
+import {
+  getMaxWidth,
+  getSum,
+  getTextWidth,
+  getNumArray,
+  TreeToFlat,
+} from "./utils";
+import {
+  pivotTableData,
+  listTree,
+  rightHeaderColumn,
+  leftHeaderRow,
+} from "./data";
 import FieldsBox from "./component/FieldsBox.vue";
-// import RightColumn from "./component/RightColumn.vue";
-// import LeftRow from "./component/LeftRow.vue";
+import RightColumn from "./component/RightColumn.vue";
+import LeftRow from "./component/LeftRow.vue";
 import LeftTop from "./component/LeftTop.vue";
 import LayoutContent from "@/components/layout/LayoutContent";
 export default {
@@ -88,8 +103,8 @@ export default {
   components: {
     LayoutContent,
     LeftTop,
-    // LeftRow,
-    // RightColumn,
+    LeftRow,
+    RightColumn,
     FieldsBox,
   },
   data() {
@@ -98,6 +113,8 @@ export default {
       listTree: listTree,
       // 表格
       pivotTableData: pivotTableData,
+      rightHeaderColumn: rightHeaderColumn,
+      leftHeaderRow: leftHeaderRow,
       perHeight: 28,
       // 拖拽
       isMouseItem: "",
@@ -111,9 +128,17 @@ export default {
     rowsData() {
       const rows = pivotTableData.rows;
       rows.forEach((item) => {
-        item.MaxWidth = getMaxWidth(this.getNumArray(item.children, "length"));
+        item.MaxWidth = getTextWidth(
+          getMaxWidth(getNumArray(item.children, "length"))
+        );
       });
       return rows;
+    },
+    rightColumnsData() {
+      return TreeToFlat(this.rightHeaderColumn);
+    },
+    leftRowsData() {
+      return TreeToFlat(this.leftHeaderRow);
     },
   },
   methods: {
@@ -126,21 +151,16 @@ export default {
     drag(item) {
       this.isMouseItem = item;
     },
+
     totalHeight(list, add) {
       const sum = list.length * this.perHeight + (add || 0);
       return sum;
     },
-    totalWidth(list) {
-      const sum = getSum(this.getNumArray(list, "MaxWidth"));
-      return getTextWidth(sum);
+    totalWidth(list, name) {
+      const sum = getSum(getNumArray(list, name));
+      return sum;
     },
-    getNumArray(list, name) {
-      let arr = [];
-      list.forEach((item) => {
-        arr.push(item[name]);
-      });
-      return arr;
-    },
+
     // tree操作
     treeClick(index) {
       if (this.showList.indexOf(index) < 0) {

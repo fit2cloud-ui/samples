@@ -9,7 +9,7 @@
     <div class="table-header-row-wrap">
       <div class="table-header-row align-left" :class="index===0&&'no-left-border'"
         v-for="(item, index) in rows" :key="index"
-        :style="`height: ${perHeight}px; width: ${getRow(item.MaxWidth)}px`">
+        :style="`height: ${perHeight}px; width: ${item.MaxWidth}px`">
 
         {{item.width}}
         <span>{{item.name}}</span>
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import { getTextWidth } from "./../utils";
 import SlideHandle from "./SlideHandle.vue";
 export default {
   name: "LeftTop",
@@ -44,9 +43,6 @@ export default {
   mounted() {},
 
   methods: {
-    getRow(width){
-      return getTextWidth(width)
-    },
     getSlideStyle() {
       return `width:4px;height: ${this.perHeight}px; top: 0; right: 0px;`;
     },

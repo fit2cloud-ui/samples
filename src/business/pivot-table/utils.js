@@ -1,5 +1,5 @@
 export function getTextWidth(length) {
-  return parseInt(length) * 4 + 20;
+  return parseInt(length) * 4 + 30;
 }
 export function getMaxWidth(arr) {
   var max = arr.reduce(function (a, b) {
@@ -14,6 +14,26 @@ export function getSum(arr) {
   return sum
 }
 
+export function getNumArray(list, name) {
+  let arr = [];
+  list.forEach((item) => {
+    arr.push(item[name]);
+  });
+  return arr;
+}
+
+export function TreeToFlat(data) {
+  if (!Array.isArray(data)) {
+    return []
+  }
+  return data.reduce((prev, curt) => {
+    // 有子节点的话把子节点作为一级节点递归遍历
+    const childs = curt["children"]?.length ? TreeToFlat(curt["children"]) : []
+    return [...prev, curt, ...childs]
+  }, [])
+}
+
+
 
 // export function getTextWidth(text) {
 //   const canvas =
@@ -23,13 +43,4 @@ export function getSum(arr) {
 //   context.font = "12px Roboto, Helvetica, PingFang SC, Arial, sans-serif";
 //   const metrics = context.measureText(text);
 //   return parseInt(metrics.width) + 40;
-// }
-
-// export function getChildList(list, value) {
-//   let childRow = []
-//   const filter = list.filter((v) => v.value === value);
-//   if (filter.length > 0)(
-//     childRow = filter[0].children
-//   )
-//   return childRow;
 // }

@@ -3,43 +3,43 @@
     <div class="axis-cell align-left"
       :class="{'total':(item.type==='total'),'no-left-border':item.left===0}"
       v-for="(item, index) in dataList" :key="index" :style="getCellStyle(item)">
-      <span>{{item.value}}</span>
+      <span>{{item.name}}</span>
     </div>
-    <drag-line v-for="(item, index) in line" :key="index" :style="getLineStyle(item)" />
+    <!-- <drag-line v-for="(item, index) in line" :key="index" :style="getLineStyle(item)" /> -->
 
   </div>
 </template>
 
 <script>
-import DragLine from "./DragLine.vue";
+// import DragLine from "./DragLine.vue";
 export default {
   name: "LeftRow",
   props: {
     dataList: Array,
   },
-  components: {
-    DragLine,
-  },
+  // components: {
+  //   DragLine,
+  // },
   data() {
     return {
-      line: [
-        { width: 4, height: 224, top: 0, left: 0 },
-        { width: 159, height: 4, top: 0, left: 0 },
-        { width: 159, height: 4, top: 224, left: 0 },
-        { width: 4, height: 224, top: 0, left: 155 },
-        { width: 4, height: 224, top: 0, left: 51},
-        { width: 51, height: 4, top: 220, left: 0 },
-        { width: 107, height: 4, top: 194, left: 51},
-      ],
+      // line: [
+      //   { width: 4, height: 224, top: 0, left: 0 },
+      //   { width: 159, height: 4, top: 0, left: 0 },
+      //   { width: 159, height: 4, top: 224, left: 0 },
+      //   { width: 4, height: 224, top: 0, left: 155 },
+      //   { width: 4, height: 224, top: 0, left: 51},
+      //   { width: 51, height: 4, top: 220, left: 0 },
+      //   { width: 107, height: 4, top: 194, left: 51},
+      // ],
     };
   },
   methods: {
     getCellStyle(item) {
       return `width: ${item.width}px; height: ${item.height}px; top: ${item.top}px; left: ${item.left}px;`;
     },
-    getLineStyle(item) {
-      return `width: ${item.width}px; height: ${item.height}px; top: ${item.top}px; left: ${item.left}px;`;
-    },
+    // getLineStyle(item) {
+    //   return `width: ${item.width}px; height: ${item.height}px; top: ${item.top}px; left: ${item.left}px;`;
+    // },
   },
 };
 </script>
