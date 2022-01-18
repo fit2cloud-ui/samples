@@ -16,7 +16,7 @@
     "@fortawesome/vue-fontawesome": "^2.0.2",
     "axios": "^0.21.1",
     "element-ui": "^2.15.7",
-    "fit2cloud-ui": "^1.6.0",
+    "fit2cloud-ui": "^1.7.0",
     "js-cookie": "^2.2.1",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
