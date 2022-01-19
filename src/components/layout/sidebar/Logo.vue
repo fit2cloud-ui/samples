@@ -45,6 +45,7 @@ export default {
 </script>
 
 <style lang="scss">
+@use "sass:math";
 @import "~@/styles/common/variables";
 
 .sidebar-logo-container {
@@ -57,9 +58,9 @@ export default {
     content: "";
     position: absolute;
     bottom: 0;
-    right: #{$sidebar-close-width / 4};
+    right: math.div($sidebar-close-width, 4);
     height: 1px;
-    width: calc(100% - #{$sidebar-close-width / 2});
+    width: calc(100% - math.div($sidebar-close-width, 2));
     background-color: hsla(0, 0%, 100%, .5);
   }
 
