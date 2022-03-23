@@ -10,8 +10,7 @@ const ComponentsSetting = {
     icon: "el-icon-s-grid",
     roles: ["admin"]
   },
-  children: [
-    {
+  children: [{
       path: "layout-content",
       component: () => import("@/business/components/LayoutContentDemo"),
       name: "LayoutContentDemo",
@@ -51,6 +50,14 @@ const ComponentsSetting = {
       hidden: true,
       meta: {
         activeMenu: "/components/form-view"
+      }
+    },
+    {
+      path: "tabs-demo",
+      component: () => import("@/business/components/DETabsDemo"),
+      name: "DETabsDemo",
+      meta: {
+        title: "DE 标签页",
       }
     },
   ]
