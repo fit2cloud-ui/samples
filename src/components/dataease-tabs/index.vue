@@ -1,7 +1,6 @@
 <template>
-  <el-tabs :class="['de-tabs',...tabClassName]" v-on="$listeners" v-bind="$attrs">
+  <el-tabs :class="['de-tabs',...tabClassName]" :style="tabStyle" v-on="$listeners" v-bind="$attrs">
     <slot></slot>
-
   </el-tabs>
 </template>
 
@@ -11,37 +10,34 @@ export default {
   props: {
     fontColor: String,
     activeColor: String,
-  },
-  watch: {
-    fontColor: {
-      immediate: true,
-      handler(val) {
-        this.changeStyle("--font-color", val);
-      },
-    },
-    activeColor: {
-      immediate: true,
-      handler(val) {
-        this.changeStyle("--active-color", val);
-      },
-    },
+    // borderColor: String,
+    // borderActiveColor: String,
   },
   computed: {
+    tabStyle() {
+      return {
+        "--font-color": this.fontColor,
+        "--active-color": this.activeColor,
+      };
+    },
     tabClassName() {
       const classes = [
         this.fontColor && "fontColor",
         this.activeColor && "activeColor",
+        this.noBorder && "noBorder",
       ];
       return classes;
     },
   },
-  created() {},
-  methods: {
-    changeStyle(name, val) {
-      let root = document.querySelector(":root");
-      root.style.setProperty(name, val);
-    },
+  data() {
+    return {
+      noBorder: false,
+    };
   },
+  created() {
+    console.log(this.$attrs);
+  },
+  methods: {},
 };
 </script>
 
@@ -71,6 +67,8 @@ export default {
     ::v-deep.el-tabs__active-bar {
       background-color: var(--active-color);
     }
+  }
+  &.noBorder {
   }
 }
 </style>
