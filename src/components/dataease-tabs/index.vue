@@ -47,7 +47,6 @@ export default {
     return {};
   },
   created() {
-    console.log(this.$attrs);
   },
   methods: {},
 };
