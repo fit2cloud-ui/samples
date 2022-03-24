@@ -53,6 +53,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* 引入variables例子，是这里需要用到 $--color-primary
+   项目中可根据自己的styles路径 自行更改 */
 @import "@/styles/common/variables";
 .de-tabs {
   &.fontColor {
