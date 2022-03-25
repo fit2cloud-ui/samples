@@ -35,13 +35,18 @@ export default {
       };
     },
     tabClassName() {
-      const classes = [
-        this.styleType,
-        this.fontColor && "fontColor",
-        this.activeColor && "activeColor",
-        this.noBorder ? "noBorder" : this.borderColor && "borderColor",
-        this.borderActiveColor && "borderActiveColor",
-      ];
+      const classes = this.styleType
+        ? [
+            this.styleType,
+            this.fontColor && "fontColor",
+            this.activeColor && "activeColor",
+          ]
+        : [
+            this.fontColor && "fontColor",
+            this.activeColor && "activeColor",
+            this.noBorder ? "noBorder" : this.borderColor && "borderColor",
+            this.borderActiveColor && "borderActiveColor",
+          ];
       return classes;
     },
     noBorder() {
