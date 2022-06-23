@@ -52,8 +52,8 @@ export const constantRoutes = [
 export const rolesRoutes = [
   // 先按sort排序
   ...modules.keys().map(key => modules(key).default).sort((r1, r2) => {
-    r1.sort ??= Number.MAX_VALUE
-    r2.sort ??= Number.MAX_VALUE
+    if (!r1.sort) r1.sort = Number.MAX_VALUE
+    if (!r2.sort) r2.sort = Number.MAX_VALUE
     return r1.sort - r2.sort
   }),
   {path: "*", redirect: "/", hidden: true}

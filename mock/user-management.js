@@ -34,7 +34,7 @@ for (let i = 0; i < 300; i++) {
 module.exports = [
   // get user list
   {
-    url: '/samples/user-management/list/\.*',
+    url: '/samples/user-management/list/*',
     type: 'get',
     response: (config) => {
       let path = config.originalUrl.split("/")
