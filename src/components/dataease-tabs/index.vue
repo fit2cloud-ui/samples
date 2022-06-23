@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import "@/styles/business/de-tabs.scss";
 export default {
   name: "DataeaseTabs",
   props: {
@@ -17,6 +18,12 @@ export default {
     borderColor: String,
     // 激活边框颜色 目前只针对card类型
     borderActiveColor: String,
+    // 样式类型  radioGroup只在Card类型有效, 同时必须给borderColor borderActiveColor
+    styleType: {
+      type: String,
+      default: "",
+      validator: (val) => ["", "radioGroup"].includes(val),
+    },
   },
   computed: {
     tabStyle() {
@@ -28,12 +35,18 @@ export default {
       };
     },
     tabClassName() {
-      const classes = [
-        this.fontColor && "fontColor",
-        this.activeColor && "activeColor",
-        this.noBorder ? "noBorder" : this.borderColor && "borderColor",
-        this.borderActiveColor && "borderActiveColor",
-      ];
+      const classes = this.styleType
+        ? [
+            this.styleType,
+            this.fontColor && "fontColor",
+            this.activeColor && "activeColor",
+          ]
+        : [
+            this.fontColor && "fontColor",
+            this.activeColor && "activeColor",
+            this.noBorder ? "noBorder" : this.borderColor && "borderColor",
+            this.borderActiveColor && "borderActiveColor",
+          ];
       return classes;
     },
     noBorder() {
@@ -46,81 +59,8 @@ export default {
   data() {
     return {};
   },
-  created() {
-  },
+  created() {},
   methods: {},
 };
 </script>
 
-<style lang="scss" scoped>
-@import "@/styles/common/variables";
-.de-tabs {
-  &.fontColor {
-    ::v-deep.el-tabs__item {
-      color: var(--font-color);
-      &.is-active {
-        color: $--color-primary;
-      }
-      &:hover {
-        color: $--color-primary;
-      }
-    }
-  }
-  &.activeColor {
-    ::v-deep.el-tabs__item {
-      &.is-active {
-        color: var(--active-color);
-      }
-      &:hover {
-        color: var(--active-color);
-      }
-    }
-    ::v-deep.el-tabs__active-bar {
-      background-color: var(--active-color);
-    }
-  }
-  // card样式的边框
-  &.noBorder.el-tabs--card {
-    ::v-deep > .el-tabs__header {
-      border-bottom: none;
-      .el-tabs__nav {
-        border: none;
-      }
-      .el-tabs__item {
-        border-left: none;
-      }
-      .el-tabs__item.is-active {
-        border-bottom: none;
-      }
-    }
-  }
-  &.borderActiveColor.el-tabs--card {
-    ::v-deep > .el-tabs__header .el-tabs__item.is-active {
-      border-bottom-color: var(--border-active-color);
-    }
-  }
-  &.borderColor.el-tabs--card {
-    ::v-deep > .el-tabs__header {
-      border-bottom-color: var(--border-color);
-      .el-tabs__nav {
-        border-color: var(--border-color);
-      }
-      .el-tabs__item {
-        border-left-color: var(--border-color);
-      }
-    }
-  }
-
-  // 简洁样式的边框
-  &.noBorder {
-    ::v-deep .el-tabs__nav-wrap::after {
-      background: none;
-    }
-  }
-  &.borderColor {
-    ::v-deep .el-tabs__nav-wrap::after {
-      background: var(--border-color);
-    }
-  }
-}
-</style>
